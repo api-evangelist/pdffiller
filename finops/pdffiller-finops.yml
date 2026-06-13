@@ -1,0 +1,115 @@
+name: PDFfiller API FinOps Framework
+description: FinOps Framework 1.0 FOCUS-aligned cost management guidance for organizations
+  consuming the PDFfiller REST API. Covers cost visibility, optimization, and governance
+  for document processing workloads.
+version: '1.0'
+framework: FinOps Framework 1.0
+alignment: FOCUS 1.0
+url: https://www.pdffiller.com/en/pdf-api-pricing.htm
+
+cost_units:
+  - name: Document Credit
+    description: The primary billing unit for the PDFfiller API. One document credit
+      is consumed per document processed through the API (fill, edit, sign, convert,
+      or merge operations).
+    unit: document
+    currency: USD
+    rates:
+      - plan: Free Trial
+        price: 0.00
+        included: 250
+      - plan: Enterprise
+        price: 0.45
+        included: 10000
+        monthly_fee: 375.00
+        billing: annual
+
+cost_visibility:
+  - name: API Dashboard Monitoring
+    description: Track document credit consumption via the API dashboard at api.pdffiller.com/admin.
+      Monitor usage against annual quota to forecast overage costs.
+    url: https://api.pdffiller.com/admin
+    metrics:
+      - documents_processed
+      - credits_remaining
+      - credits_used
+      - overage_documents
+
+  - name: Cost Allocation Tags
+    description: Tag API usage by application, department, or project by maintaining
+      separate API application credentials per cost center within the developers.pdffiller.com
+      portal.
+    url: https://developers.pdffiller.com
+
+cost_optimization:
+  - name: Batch Processing
+    description: Consolidate document operations to minimize individual API calls.
+      Use bulk endpoints where available to process multiple documents in a single
+      request, reducing overhead.
+    category: efficiency
+
+  - name: Template Reuse
+    description: Create reusable templates for recurring document types rather than
+      uploading the same base PDF repeatedly. Template IDs persist and reduce redundant
+      document processing.
+    category: efficiency
+
+  - name: Caching
+    description: Cache document IDs, template IDs, and fillable form IDs locally
+      to avoid repeated lookups. Store OAuth access tokens and refresh only on expiry.
+    category: efficiency
+
+  - name: Annual Billing
+    description: Commit to annual billing to access the lowest per-document rate.
+      The Enterprise plan at $375/month billed annually provides 10,000 documents
+      per year at $0.45/document effective rate.
+    category: commitment_discount
+
+  - name: Volume Negotiation
+    description: For workloads exceeding 10,000 documents per year, engage PDFfiller
+      sales for a Volume plan with custom discounts. Volume plans include implementation
+      support that can accelerate integration ROI.
+    category: commitment_discount
+
+  - name: Right-Sizing
+    description: Monitor actual document consumption monthly. If annual usage consistently
+      falls below 10,000 documents, evaluate whether the Enterprise plan quota is
+      right-sized or negotiate a smaller tier with the vendor.
+    category: right_sizing
+
+cost_governance:
+  - name: Quota Alerting
+    description: Set internal alerts at 70%, 85%, and 95% of annual document quota
+      to provide advance warning of potential overage charges. Overage is billed at
+      $0.45 per document.
+    thresholds:
+      - percent: 70
+        action: review_and_forecast
+      - percent: 85
+        action: escalate_to_management
+      - percent: 95
+        action: pause_non_critical_workloads
+
+  - name: Overage Budget
+    description: Include overage buffer in annual API budget. For 10,000-document
+      Enterprise plan, budget an additional 10-20% for unexpected volume spikes.
+    calculation: overage_documents * 0.45
+
+  - name: Free Trial Governance
+    description: Use the 250-credit free trial exclusively for development and integration
+      testing. Do not consume trial credits in production workloads to preserve their
+      testing value.
+    environment: development_only
+
+compliance:
+  certifications:
+    - SOC 2 Type II
+    - HIPAA
+    - PCI DSS
+    - GDPR
+  notes:
+    - HIPAA compliance is included in all API tiers at no additional cost
+    - Compliance certifications support regulated industry adoption without additional
+      vendor cost
+    - Data residency requirements should be confirmed with PDFfiller before production
+      deployment in regions with strict data sovereignty laws

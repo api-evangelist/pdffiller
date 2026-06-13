@@ -1,0 +1,72 @@
+aid: pdffiller
+name: PDFfiller
+description: PDFfiller is an online PDF editing and e-signature platform that provides
+  a REST API for filling, editing, signing, converting, and managing PDF documents
+  programmatically. The API enables developers to embed PDF editing, form-building,
+  signature request workflows, and document management capabilities into their own
+  applications. It is part of the airSlate family of products and supports OAuth 2.0
+  authentication with a base URL of https://api.pdffiller.com/v2/.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/pdffiller/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - PDF
+  - E-Signature
+  - Document Management
+  - Form Builder
+  - PDF Editing
+  - Electronic Signature
+  - Document Workflow
+apis:
+  - aid: pdffiller:pdffiller-api
+    name: PDFfiller REST API
+    description: The PDFfiller REST API allows developers to build applications that
+      interact with PDFfiller over HTTP. It supports operations for managing documents,
+      templates, fillable forms, fields, annotations, and eSignature requests. Authentication
+      uses OAuth 2.0 with a password or client credentials grant type.
+    humanURL: https://docs.pdffiller.com/docs/pdffiller/zmnt034fyekxf-pdf-filler-api
+    baseURL: https://api.pdffiller.com/v2/
+    tags:
+      - PDF
+      - Documents
+      - E-Signature
+      - Forms
+      - Annotations
+    properties:
+      - type: Documentation
+        url: https://docs.pdffiller.com/docs/pdffiller/zmnt034fyekxf-pdf-filler-api
+      - type: OpenAPI
+        url: https://docs.pdffiller.com
+    contact:
+      - FN: PDFfiller Developer Support
+        url: https://developers.pdffiller.com/
+        email: ''
+common:
+  - type: Website
+    url: https://www.pdffiller.com
+  - type: Documentation
+    url: https://docs.pdffiller.com/docs/pdffiller/zmnt034fyekxf-pdf-filler-api
+  - type: DeveloperPortal
+    url: https://developers.pdffiller.com
+  - type: GitHubOrg
+    url: https://github.com/pdffiller
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/pdffiller-com
+  - type: Blog
+    url: https://blog.pdffiller.com
+  - type: Pricing
+    url: https://www.pdffiller.com/en/pdf-api-pricing.htm
+  - type: X
+    url: https://x.com/pdf_filler
+  - type: Plans
+    url: plans/pdffiller-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/pdffiller-rate-limits.yml
+  - type: FinOps
+    url: finops/pdffiller-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,60 @@
+name: PDFfiller API Rate Limits
+description: Rate limiting policies for the PDFfiller REST API. PDFfiller does not
+  publicly document specific numeric rate limits. Limits are enforced per API account
+  and scale with plan tier. Developers should implement retry logic with exponential
+  backoff when receiving 429 Too Many Requests responses. For specific rate limit
+  details, consult the API dashboard at api.pdffiller.com/admin or contact PDFfiller
+  developer support.
+version: '0.1'
+url: https://developers.pdffiller.com
+
+policies:
+  - name: Account-Level Throttling
+    description: API requests are throttled at the account level. Rate limits vary
+      by plan tier and are enforced server-side. Exceeding limits results in HTTP
+      429 responses.
+    scope: account
+    enforcement: server-side
+    response_code: 429
+    headers:
+      - name: X-RateLimit-Limit
+        description: Maximum number of requests allowed in the current window
+      - name: X-RateLimit-Remaining
+        description: Number of requests remaining in the current window
+      - name: X-RateLimit-Reset
+        description: Unix timestamp when the current rate limit window resets
+      - name: Retry-After
+        description: Seconds to wait before retrying after a 429 response
+
+  - name: Document Quota
+    description: API plans enforce annual document quotas. The Enterprise plan includes
+      10,000 documents per year at $375/month. Additional documents are billed at
+      $0.45 per document. The Free Trial provides 250 document credits.
+    scope: account
+    period: annual
+    tiers:
+      - plan: Free Trial
+        quota: 250
+        unit: documents
+      - plan: Enterprise
+        quota: 10000
+        unit: documents
+        overage_rate: 0.45
+        overage_currency: USD
+      - plan: Volume
+        quota: custom
+        unit: documents
+
+best_practices:
+  - Implement exponential backoff when receiving 429 responses
+  - Cache document IDs and template IDs to avoid redundant API calls
+  - Use webhooks or polling to check document status rather than repeated GET requests
+  - Batch operations where the API supports bulk endpoints
+  - Monitor your document quota usage via the API dashboard at api.pdffiller.com/admin
+
+notes:
+  - Specific numeric rate limits (requests per minute/hour) are not publicly documented
+  - Contact PDFfiller support at developers.pdffiller.com for current limit details
+  - OAuth access tokens expire and must be refreshed; token refresh does not count
+    toward document quotas
+  - SSL/TLS encryption is required for all API calls; HTTP requests are rejected

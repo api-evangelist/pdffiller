@@ -1,0 +1,126 @@
+name: PDFfiller API Plans and Pricing
+description: Pricing plans for PDFfiller's API products, covering individual document
+  editing subscriptions and dedicated API access tiers for developers and enterprises
+  embedding PDF capabilities into their applications.
+version: '0.1'
+url: https://www.pdffiller.com/en/pdf-api-pricing.htm
+
+plans:
+  - name: Free Trial
+    description: Risk-free trial providing 250 document credits to test the PDF Editing
+      API and PDF Tools APIs with all paid features enabled.
+    price: 0
+    currency: USD
+    period: trial
+    unit: document
+    quota: 250
+    features:
+      - All paid features enabled during trial
+      - PDF editing API access
+      - PDF Tools API access
+      - Form builder API access
+      - E-signature capabilities
+      - 250 document credits (valued at $250)
+
+  - name: Enterprise
+    description: Production API plan for companies integrating PDFfiller's PDF tools
+      into their applications at scale, billed annually with per-document pricing.
+    price: 375
+    currency: USD
+    period: month
+    billing: annual
+    unit: document
+    quota: 10000
+    overage: 0.45
+    features:
+      - Embedded PDF editor
+      - Embedded form builder
+      - Embedded links to fillable forms
+      - Signature and annotation support
+      - Document merging and splitting
+      - Excel-to-PDF conversion
+      - Pre-fill form fields via API
+      - SOC 2 Type II compliance
+      - HIPAA compliance
+      - PCI DSS compliance
+      - GDPR compliance
+      - 24x7 support
+
+  - name: Volume
+    description: Custom pricing for companies with large transaction volumes and unique
+      business models requiring volume discounts and custom development assistance.
+    price: custom
+    currency: USD
+    period: custom
+    features:
+      - Volume discounts
+      - Custom development support
+      - Implementation expertise
+      - Dedicated account management
+      - All Enterprise features included
+      - Custom integration assistance
+
+individual_plans:
+  description: End-user subscription plans for individuals and teams using PDFfiller's
+    online document platform. These plans grant access to the platform UI and may
+    include limited API access for integrations.
+  plans:
+    - name: Basic
+      price: 8
+      currency: USD
+      period: month
+      billing: annual
+      features:
+        - PDF text editing and formatting
+        - Form filling
+        - Cloud storage
+        - Core editing tools
+
+    - name: Plus
+      price: 12
+      currency: USD
+      period: month
+      billing: annual
+      features:
+        - All Basic features
+        - Reusable templates
+        - Password protection
+        - Team sharing
+
+    - name: Premium
+      price: 15
+      currency: USD
+      period: month
+      billing: annual
+      features:
+        - All Plus features
+        - Advanced editing
+        - SignNow eSignature integration
+        - US Legal Forms library access
+        - Audit trails
+        - Zapier and custom integrations
+
+    - name: Enterprise Basic
+      price: 8
+      currency: USD
+      period: month
+      billing: annual
+      minimum_users: 20
+      features:
+        - Team collaboration with unified workspaces
+        - Basic branding
+        - HIPAA compliance
+        - Dedicated support manager
+
+    - name: Enterprise Premium
+      price: 15
+      currency: USD
+      period: month
+      billing: annual
+      minimum_users: 10
+      features:
+        - Advanced workflows
+        - Detailed audit trails
+        - SignNow integration
+        - US Legal Forms access
+        - Zapier and custom integrations
