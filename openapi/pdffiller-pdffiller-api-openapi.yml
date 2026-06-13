@@ -1,0 +1,2417 @@
+openapi: 3.0.3
+info:
+  title: PDFfiller REST API
+  description: >
+    The PDFfiller REST API allows developers to build applications that interact
+    with PDFfiller over HTTP. It supports operations for managing documents,
+    templates, fillable forms, fields, annotations, and eSignature requests.
+    Authentication uses OAuth 2.0 with password or client credentials grant types.
+    PDFfiller is part of the airSlate family of products.
+  version: '2.0'
+  contact:
+    name: PDFfiller Developer Support
+    url: https://developers.pdffiller.com/
+  license:
+    name: Proprietary
+    url: https://www.pdffiller.com/en/terms.htm
+servers:
+  - url: https://api.pdffiller.com/v2
+    description: PDFfiller API v2
+
+security:
+  - oauth2: []
+
+tags:
+  - name: Auth
+    description: OAuth 2.0 authentication token management
+  - name: Applications
+    description: Manage OAuth applications
+  - name: Templates
+    description: Manage PDF document templates
+  - name: Fillable Forms
+    description: Manage fillable form links and submissions
+  - name: Signature Requests
+    description: Manage eSignature requests and workflows
+  - name: Callbacks
+    description: Manage webhook callbacks for document events
+  - name: Folders
+    description: Organize documents into folders
+  - name: Tokens
+    description: Manage embedded document tokens
+  - name: Custom Logos
+    description: Manage custom branding logos
+  - name: Users
+    description: Retrieve current user information
+  - name: Tools
+    description: Document utility tools (merge, convert)
+
+paths:
+  /oauth/token:
+    post:
+      operationId: authorize
+      summary: Obtain OAuth 2.0 access token
+      description: >
+        Exchanges credentials for an OAuth 2.0 access token using password
+        or client_credentials grant types.
+      tags:
+        - Auth
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthCredentials'
+      responses:
+        '200':
+          description: Access token issued successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessToken'
+        '401':
+          description: Invalid credentials
+
+  /applications:
+    get:
+      operationId: listApplications
+      summary: List all applications
+      description: Returns a list of all OAuth applications for the authenticated user.
+      tags:
+        - Applications
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order_by'
+        - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of applications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createApplication
+      summary: Create an application
+      description: Creates a new OAuth application.
+      tags:
+        - Applications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationInput'
+      responses:
+        '201':
+          description: Application created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /applications/{application_id}:
+    get:
+      operationId: getApplication
+      summary: Get application by ID
+      description: Lists information about the specified application.
+      tags:
+        - Applications
+      parameters:
+        - $ref: '#/components/parameters/application_id'
+      responses:
+        '200':
+          description: Application details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateApplication
+      summary: Update an application
+      description: Updates an existing OAuth application.
+      tags:
+        - Applications
+      parameters:
+        - $ref: '#/components/parameters/application_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationInput'
+      responses:
+        '200':
+          description: Application updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteApplication
+      summary: Delete an application
+      description: Deletes the specified OAuth application.
+      tags:
+        - Applications
+      parameters:
+        - $ref: '#/components/parameters/application_id'
+      responses:
+        '204':
+          description: Application deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /applications/{application_id}/users:
+    get:
+      operationId: getApplicationUsers
+      summary: List application users
+      description: Retrieves a list of users who authorized with the specified application.
+      tags:
+        - Applications
+      parameters:
+        - $ref: '#/components/parameters/application_id'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order_by'
+        - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of application users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /templates:
+    get:
+      operationId: listTemplates
+      summary: List all templates
+      description: Returns a list of all document templates.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order_by'
+        - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of templates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createTemplate
+      summary: Create a template
+      description: Creates a new document template from an uploaded file or URL.
+      tags:
+        - Templates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TemplateInput'
+      responses:
+        '201':
+          description: Template created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /templates/{template_id}:
+    get:
+      operationId: getTemplate
+      summary: Get template by ID
+      description: Retrieves information about a specific template.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/template_id'
+      responses:
+        '200':
+          description: Template details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateTemplate
+      summary: Update a template
+      description: Updates an existing document template.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/template_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateInput'
+      responses:
+        '200':
+          description: Template updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteTemplate
+      summary: Delete a template
+      description: Removes the specified document template.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/template_id'
+      responses:
+        '204':
+          description: Template deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /templates/{template_id}/previews:
+    get:
+      operationId: getTemplatePreviews
+      summary: Get template previews
+      description: Retrieves preview images for a template.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/template_id'
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+        - name: page
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Template preview images
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        page:
+                          type: integer
+                        url:
+                          type: string
+                          format: uri
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /templates/{template_id}/download:
+    get:
+      operationId: downloadTemplate
+      summary: Download template PDF
+      description: Downloads the filled template as a PDF file.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/template_id'
+      responses:
+        '200':
+          description: Template PDF file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /templates/{template_id}/original_document:
+    get:
+      operationId: downloadTemplateOriginal
+      summary: Download original template document
+      description: Downloads the original uploaded document for the template.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/template_id'
+      responses:
+        '200':
+          description: Original template document
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /templates/{template_id}/roles:
+    get:
+      operationId: getTemplateRoles
+      summary: Get template roles
+      description: Retrieves available signature roles for a template.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/template_id'
+      responses:
+        '200':
+          description: Template roles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Role'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /templates/{template_id}/fields:
+    get:
+      operationId: getTemplateFields
+      summary: Get template fields
+      description: Retrieves all fillable fields defined in a template.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/template_id'
+      responses:
+        '200':
+          description: Template fields
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Field'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /templates/{template_id}/filled_documents:
+    get:
+      operationId: getTemplateFilledDocuments
+      summary: Get filled documents for template
+      description: Retrieves all filled document instances created from a template.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/template_id'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: Filled documents list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilledDocumentList'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /templates/{template_id}/constructor:
+    get:
+      operationId: getTemplateConstructorUrl
+      summary: Get template constructor URL
+      description: Returns a URL to open the template in the PDFfiller constructor/editor.
+      tags:
+        - Templates
+      parameters:
+        - $ref: '#/components/parameters/template_id'
+      responses:
+        '200':
+          description: Constructor URL
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    format: uri
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /fillable_forms:
+    get:
+      operationId: listFillableForms
+      summary: List all fillable forms
+      description: Returns a list of all document fill requests (LinkToFill).
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order_by'
+        - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of fillable forms
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FillableFormList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createFillableForm
+      summary: Create a fillable form
+      description: Creates a new document and shares it via a short URL (LinkToFill).
+      tags:
+        - Fillable Forms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FillableFormInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FillableFormInput'
+      responses:
+        '201':
+          description: Fillable form created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FillableForm'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /fillable_forms/{link_to_fill_id}:
+    get:
+      operationId: getFillableForm
+      summary: Get fillable form by ID
+      description: Returns information about a specific fill request item.
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/link_to_fill_id'
+      responses:
+        '200':
+          description: Fillable form details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FillableForm'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateFillableForm
+      summary: Update a fillable form
+      description: Updates an existing fill request.
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/link_to_fill_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FillableFormInput'
+      responses:
+        '200':
+          description: Fillable form updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FillableForm'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteFillableForm
+      summary: Delete a fillable form
+      description: Removes the specified fill request.
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/link_to_fill_id'
+      responses:
+        '204':
+          description: Fillable form deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /fillable_forms/{link_to_fill_id}/download:
+    get:
+      operationId: downloadFillableForm
+      summary: Download fillable form
+      description: Downloads the fillable form. May return 200 (file ready), 204 (in progress), or 202 (queued).
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/link_to_fill_id'
+      responses:
+        '200':
+          description: Form file ready for download
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '202':
+          description: File generation queued
+        '204':
+          description: File generation in progress
+
+  /fillable_forms/{link_to_fill_id}/filled_forms:
+    get:
+      operationId: listFilledForms
+      summary: List filled submissions for a fillable form
+      description: Returns a list of all submitted instances of a fill request.
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/link_to_fill_id'
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order_by'
+        - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of filled form submissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilledFormList'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}:
+    get:
+      operationId: getFilledForm
+      summary: Get a filled form submission
+      description: Returns information about a specific filled form submission.
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/link_to_fill_id'
+        - $ref: '#/components/parameters/filled_form_id'
+      responses:
+        '200':
+          description: Filled form submission details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilledForm'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteFilledForm
+      summary: Delete a filled form submission
+      description: Removes a specific filled form submission.
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/link_to_fill_id'
+        - $ref: '#/components/parameters/filled_form_id'
+      responses:
+        '204':
+          description: Filled form deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}/export:
+    get:
+      operationId: exportFilledForm
+      summary: Export filled form data
+      description: Exports the filled form data in a structured format.
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/link_to_fill_id'
+        - $ref: '#/components/parameters/filled_form_id'
+      responses:
+        '200':
+          description: Exported filled form data
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}/download:
+    get:
+      operationId: downloadFilledForm
+      summary: Download a filled form submission
+      description: Downloads the filled form as a PDF file.
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/link_to_fill_id'
+        - $ref: '#/components/parameters/filled_form_id'
+      responses:
+        '200':
+          description: Filled form PDF
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}/additional_documents:
+    get:
+      operationId: listFilledFormAdditionalDocuments
+      summary: List additional documents for filled submission
+      description: Returns all additional documents attached to a filled form submission.
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/link_to_fill_id'
+        - $ref: '#/components/parameters/filled_form_id'
+      responses:
+        '200':
+          description: Additional documents list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AdditionalDocument'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}/additional_documents/download:
+    get:
+      operationId: downloadAllFilledFormAdditionalDocuments
+      summary: Download all additional documents
+      description: Downloads all additional documents for a filled form submission as a ZIP archive.
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/link_to_fill_id'
+        - $ref: '#/components/parameters/filled_form_id'
+      responses:
+        '200':
+          description: ZIP archive of additional documents
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}/additional_documents/{additional_document_id}:
+    get:
+      operationId: getFilledFormAdditionalDocument
+      summary: Get a specific additional document
+      description: Returns information about a specific additional document attached to a submission.
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/link_to_fill_id'
+        - $ref: '#/components/parameters/filled_form_id'
+        - $ref: '#/components/parameters/additional_document_id'
+      responses:
+        '200':
+          description: Additional document details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdditionalDocument'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}/additional_documents/{additional_document_id}/download:
+    get:
+      operationId: downloadFilledFormAdditionalDocument
+      summary: Download a specific additional document
+      description: Downloads a specific additional document attached to a filled form submission.
+      tags:
+        - Fillable Forms
+      parameters:
+        - $ref: '#/components/parameters/link_to_fill_id'
+        - $ref: '#/components/parameters/filled_form_id'
+        - $ref: '#/components/parameters/additional_document_id'
+      responses:
+        '200':
+          description: Additional document file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /signature_requests/inbox:
+    get:
+      operationId: listSignatureRequestsInbox
+      summary: List inbox signature requests
+      description: Retrieves a list of all document signature requests in the inbox folder (requests sent to you).
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order_by'
+        - $ref: '#/components/parameters/order'
+        - name: status
+          in: query
+          description: Filter by signature request status
+          schema:
+            type: string
+            enum: [awaiting, signed, cancelled]
+        - name: date_from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: date_to
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: List of inbox signature requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureRequestList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /signature_requests/inbox/download:
+    get:
+      operationId: downloadInboxSignatureRequests
+      summary: Download inbox signature requests
+      description: Downloads all documents for which a sender has requested your signature as a ZIP archive.
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order'
+        - name: status
+          in: query
+          schema:
+            type: string
+        - name: date_from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: date_to
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: ZIP archive of inbox signature request documents
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+
+  /signature_requests:
+    get:
+      operationId: listSignatureRequests
+      summary: List all signature requests
+      description: Retrieves a list of all document signature requests sent by the authenticated user.
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order_by'
+        - $ref: '#/components/parameters/order'
+        - name: date_from
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: date_to
+          in: query
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: List of signature requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureRequestList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSignatureRequest
+      summary: Create a signature request
+      description: >
+        Creates a new eSignature request. Supports two methods: SendToEach (individual recipients)
+        and SendToGroup (envelope with ordered signing). SendToGroup requires envelope_name, sign_in_order,
+        and role parameters per recipient.
+      tags:
+        - Signature Requests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignatureRequestInput'
+      responses:
+        '201':
+          description: Signature request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /signature_requests/{signature_request_id}:
+    get:
+      operationId: getSignatureRequest
+      summary: Get signature request by ID
+      description: Retrieves signature request information based on the signature request ID.
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/signature_request_id'
+      responses:
+        '200':
+          description: Signature request details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSignatureRequest
+      summary: Delete a signature request
+      description: Cancels and removes the specified signature request.
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/signature_request_id'
+      responses:
+        '204':
+          description: Signature request deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /signature_requests/{signature_request_id}/certificate:
+    get:
+      operationId: getSignatureRequestCertificate
+      summary: Get signature certificate
+      description: Retrieves the signing certificate for a completed signature request.
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/signature_request_id'
+      responses:
+        '200':
+          description: Signature certificate
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificate_url:
+                    type: string
+                    format: uri
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /signature_requests/{signature_request_id}/signed_document:
+    get:
+      operationId: downloadSignedDocument
+      summary: Download signed document
+      description: Downloads the completed signed document as a PDF.
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/signature_request_id'
+      responses:
+        '200':
+          description: Signed document PDF
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /signature_requests/{signature_request_id}/recipients:
+    get:
+      operationId: listSignatureRequestRecipients
+      summary: List signature request recipients
+      description: Returns all recipients for a specific signature request.
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/signature_request_id'
+      responses:
+        '200':
+          description: List of recipients
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Recipient'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /signature_requests/{signature_request_id}/recipients/{recipient_id}:
+    get:
+      operationId: getSignatureRequestRecipient
+      summary: Get signature request recipient
+      description: Returns information about a specific recipient.
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/signature_request_id'
+        - $ref: '#/components/parameters/recipient_id'
+      responses:
+        '200':
+          description: Recipient details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipient'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: remindSignatureRequestRecipient
+      summary: Send reminder to recipient
+      description: Sends a reminder notification to a specific recipient.
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/signature_request_id'
+        - $ref: '#/components/parameters/recipient_id'
+      responses:
+        '200':
+          description: Reminder sent
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /signature_requests/{signature_request_id}/recipients/{recipient_id}/additional_documents:
+    get:
+      operationId: listRecipientAdditionalDocuments
+      summary: List recipient additional documents
+      description: Returns all additional documents for a specific signature request recipient.
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/signature_request_id'
+        - $ref: '#/components/parameters/recipient_id'
+      responses:
+        '200':
+          description: Additional documents list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AdditionalDocument'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /signature_requests/{signature_request_id}/recipients/{recipient_id}/additional_documents/download:
+    get:
+      operationId: downloadRecipientAdditionalDocuments
+      summary: Download all recipient additional documents
+      description: Downloads all additional documents for a recipient as a ZIP archive.
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/signature_request_id'
+        - $ref: '#/components/parameters/recipient_id'
+      responses:
+        '200':
+          description: ZIP archive of additional documents
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+
+  /signature_requests/{signature_request_id}/recipients/{recipient_id}/additional_documents/{additional_document_id}:
+    get:
+      operationId: getRecipientAdditionalDocument
+      summary: Get recipient additional document
+      description: Returns information about a specific additional document for a recipient.
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/signature_request_id'
+        - $ref: '#/components/parameters/recipient_id'
+        - $ref: '#/components/parameters/additional_document_id'
+      responses:
+        '200':
+          description: Additional document details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdditionalDocument'
+
+  /signature_requests/{signature_request_id}/recipients/{recipient_id}/additional_documents/{additional_document_id}/download:
+    get:
+      operationId: downloadRecipientAdditionalDocument
+      summary: Download recipient additional document
+      description: Downloads a specific additional document for a recipient.
+      tags:
+        - Signature Requests
+      parameters:
+        - $ref: '#/components/parameters/signature_request_id'
+        - $ref: '#/components/parameters/recipient_id'
+        - $ref: '#/components/parameters/additional_document_id'
+      responses:
+        '200':
+          description: Additional document file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+
+  /callbacks:
+    get:
+      operationId: listCallbacks
+      summary: List all callbacks
+      description: Returns a list of all webhook callback configurations.
+      tags:
+        - Callbacks
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order_by'
+        - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of callbacks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CallbackList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCallback
+      summary: Create a callback
+      description: Creates a new webhook callback configuration for document events.
+      tags:
+        - Callbacks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CallbackInput'
+      responses:
+        '201':
+          description: Callback created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /callbacks/{callback_id}:
+    get:
+      operationId: getCallback
+      summary: Get callback by ID
+      description: Returns information about a specific callback configuration.
+      tags:
+        - Callbacks
+      parameters:
+        - $ref: '#/components/parameters/callback_id'
+      responses:
+        '200':
+          description: Callback details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateCallback
+      summary: Update a callback
+      description: Updates an existing webhook callback configuration.
+      tags:
+        - Callbacks
+      parameters:
+        - $ref: '#/components/parameters/callback_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CallbackInput'
+      responses:
+        '200':
+          description: Callback updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCallback
+      summary: Delete a callback
+      description: Removes the specified webhook callback configuration.
+      tags:
+        - Callbacks
+      parameters:
+        - $ref: '#/components/parameters/callback_id'
+      responses:
+        '204':
+          description: Callback deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /callbacks/global:
+    get:
+      operationId: getGlobalCallback
+      summary: Get global callback
+      description: Returns the global webhook callback configuration that applies to all documents.
+      tags:
+        - Callbacks
+      responses:
+        '200':
+          description: Global callback configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updateGlobalCallback
+      summary: Update global callback
+      description: Updates the global webhook callback configuration.
+      tags:
+        - Callbacks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CallbackInput'
+      responses:
+        '200':
+          description: Global callback updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+    delete:
+      operationId: deleteGlobalCallback
+      summary: Delete global callback
+      description: Removes the global webhook callback configuration.
+      tags:
+        - Callbacks
+      responses:
+        '204':
+          description: Global callback deleted
+
+  /folders:
+    get:
+      operationId: listFolders
+      summary: List all folders
+      description: Returns a list of all document folders.
+      tags:
+        - Folders
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order_by'
+        - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of folders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FolderList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createFolder
+      summary: Create a folder
+      description: Creates a new document folder.
+      tags:
+        - Folders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderInput'
+      responses:
+        '201':
+          description: Folder created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /folders/{folder_id}:
+    get:
+      operationId: getFolder
+      summary: Get folder by ID
+      description: Returns information about a specific folder.
+      tags:
+        - Folders
+      parameters:
+        - $ref: '#/components/parameters/folder_id'
+      responses:
+        '200':
+          description: Folder details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateFolder
+      summary: Update a folder
+      description: Updates an existing folder.
+      tags:
+        - Folders
+      parameters:
+        - $ref: '#/components/parameters/folder_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderInput'
+      responses:
+        '200':
+          description: Folder updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteFolder
+      summary: Delete a folder
+      description: Removes the specified folder.
+      tags:
+        - Folders
+      parameters:
+        - $ref: '#/components/parameters/folder_id'
+      responses:
+        '204':
+          description: Folder deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /tokens:
+    get:
+      operationId: listTokens
+      summary: List all tokens
+      description: Returns a list of all embedded document tokens.
+      tags:
+        - Tokens
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/order_by'
+        - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of tokens
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createToken
+      summary: Create a token
+      description: Creates a new embedded document token for embedding PDFfiller in third-party applications.
+      tags:
+        - Tokens
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenInput'
+      responses:
+        '201':
+          description: Token created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /tokens/{token_id}:
+    get:
+      operationId: getToken
+      summary: Get token by ID
+      description: Returns information about a specific embedded document token.
+      tags:
+        - Tokens
+      parameters:
+        - $ref: '#/components/parameters/token_id'
+      responses:
+        '200':
+          description: Token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateToken
+      summary: Update a token
+      description: Updates an existing embedded document token.
+      tags:
+        - Tokens
+      parameters:
+        - $ref: '#/components/parameters/token_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenInput'
+      responses:
+        '200':
+          description: Token updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteToken
+      summary: Delete a token
+      description: Removes the specified embedded document token.
+      tags:
+        - Tokens
+      parameters:
+        - $ref: '#/components/parameters/token_id'
+      responses:
+        '204':
+          description: Token deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /custom_branding/custom_logo:
+    get:
+      operationId: listCustomLogos
+      summary: List all custom logos
+      description: Returns a list of all custom branding logos.
+      tags:
+        - Custom Logos
+      parameters:
+        - $ref: '#/components/parameters/per_page'
+        - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: List of custom logos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomLogoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCustomLogo
+      summary: Upload a custom logo
+      description: Uploads a new custom branding logo.
+      tags:
+        - Custom Logos
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                logo:
+                  type: string
+                  format: binary
+                  description: Logo image file (PNG or JPG, square)
+      responses:
+        '201':
+          description: Custom logo uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomLogo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /custom_branding/custom_logo/{custom_logo_id}:
+    get:
+      operationId: getCustomLogo
+      summary: Get custom logo by ID
+      description: Returns information about a specific custom logo.
+      tags:
+        - Custom Logos
+      parameters:
+        - $ref: '#/components/parameters/custom_logo_id'
+      responses:
+        '200':
+          description: Custom logo details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomLogo'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCustomLogo
+      summary: Delete a custom logo
+      description: Removes the specified custom branding logo.
+      tags:
+        - Custom Logos
+      parameters:
+        - $ref: '#/components/parameters/custom_logo_id'
+      responses:
+        '204':
+          description: Custom logo deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /users/me:
+    get:
+      operationId: getCurrentUser
+      summary: Get current user
+      description: Retrieves information about the currently authenticated user.
+      tags:
+        - Users
+      responses:
+        '200':
+          description: Current user information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /tools/merge:
+    post:
+      operationId: mergeDocuments
+      summary: Merge PDF documents
+      description: Merges multiple PDF documents into a single PDF file.
+      tags:
+        - Tools
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MergeInput'
+      responses:
+        '200':
+          description: Merged document
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: ID of the merged template
+                  name:
+                    type: string
+                  url:
+                    type: string
+                    format: uri
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access
+        clientCredentials:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access
+
+  parameters:
+    application_id:
+      name: application_id
+      in: path
+      required: true
+      description: Unique identifier for the application
+      schema:
+        type: integer
+    template_id:
+      name: template_id
+      in: path
+      required: true
+      description: Unique identifier for the template
+      schema:
+        type: integer
+    link_to_fill_id:
+      name: link_to_fill_id
+      in: path
+      required: true
+      description: Unique identifier for the fillable form (LinkToFill)
+      schema:
+        type: integer
+    filled_form_id:
+      name: filled_form_id
+      in: path
+      required: true
+      description: Unique identifier for the filled form submission
+      schema:
+        type: integer
+    signature_request_id:
+      name: signature_request_id
+      in: path
+      required: true
+      description: Unique identifier for the signature request
+      schema:
+        type: integer
+    recipient_id:
+      name: recipient_id
+      in: path
+      required: true
+      description: Unique identifier for the signature request recipient
+      schema:
+        type: integer
+    additional_document_id:
+      name: additional_document_id
+      in: path
+      required: true
+      description: Unique identifier for the additional document
+      schema:
+        type: integer
+    callback_id:
+      name: callback_id
+      in: path
+      required: true
+      description: Unique identifier for the callback
+      schema:
+        type: integer
+    folder_id:
+      name: folder_id
+      in: path
+      required: true
+      description: Unique identifier for the folder
+      schema:
+        type: integer
+    token_id:
+      name: token_id
+      in: path
+      required: true
+      description: Unique identifier for the token
+      schema:
+        type: integer
+    custom_logo_id:
+      name: custom_logo_id
+      in: path
+      required: true
+      description: Unique identifier for the custom logo
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum: [asc, desc]
+        default: desc
+
+  responses:
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
+
+    AuthCredentials:
+      type: object
+      required:
+        - grant_type
+        - client_id
+        - client_secret
+      properties:
+        grant_type:
+          type: string
+          enum: [password, client_credentials]
+          description: OAuth 2.0 grant type
+        client_id:
+          type: string
+          description: OAuth application client ID
+        client_secret:
+          type: string
+          description: OAuth application client secret
+        username:
+          type: string
+          description: User email address (required for password grant)
+        password:
+          type: string
+          description: User password (required for password grant)
+
+    AccessToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: OAuth 2.0 access token
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          description: Token expiration time in seconds
+        refresh_token:
+          type: string
+          description: Token for refreshing the access token
+
+    Application:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        domain:
+          type: string
+        embedded_domain:
+          type: string
+        all_domains:
+          type: boolean
+        logo:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    ApplicationInput:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Application name
+        description:
+          type: string
+          description: Application description
+        domain:
+          type: string
+          description: Application domain for authorization_code grant
+        logo:
+          type: string
+          description: Logo image (base64 string, file URL, or file upload)
+        embedded-domain:
+          type: string
+          description: Domain where the client will be embedded
+        all-domains:
+          type: boolean
+          description: Allow all domains flag
+
+    ApplicationList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Application'
+
+    UserList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+
+    Template:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        page_count:
+          type: integer
+        folder_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        thumbnail:
+          type: string
+          format: uri
+
+    TemplateInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Template name
+        file:
+          type: string
+          description: File URL or base64 encoded file content
+        folder_id:
+          type: integer
+          description: Folder ID to place template in
+
+    TemplateList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
+
+    Role:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        order:
+          type: integer
+
+    Field:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+          enum: [text, signature, date, checkbox, dropdown, initials]
+        page:
+          type: integer
+        required:
+          type: boolean
+        role:
+          type: string
+
+    FilledDocumentList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              status:
+                type: string
+              created_at:
+                type: string
+                format: date-time
+
+    FillableForm:
+      type: object
+      properties:
+        id:
+          type: integer
+        document_id:
+          type: integer
+        name:
+          type: string
+        access:
+          type: string
+          enum: [public, private]
+        status:
+          type: string
+          enum: [active, inactive]
+        email_required:
+          type: boolean
+        allow_downloads:
+          type: boolean
+        redirect_url:
+          type: string
+          format: uri
+        name_required:
+          type: boolean
+        custom_message:
+          type: string
+        notifications:
+          type: string
+        reusable:
+          type: boolean
+        short_url:
+          type: string
+          format: uri
+        folder_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    FillableFormInput:
+      type: object
+      properties:
+        document_id:
+          type: integer
+          description: ID of the document template to use
+        file:
+          type: string
+          description: File to be uploaded (alternative to document_id)
+        name:
+          type: string
+          description: New document name
+        access:
+          type: string
+          enum: [public, private]
+          description: Access level for the fill request
+        status:
+          type: string
+          description: Document access permission
+        email_required:
+          type: boolean
+          description: Require email from fillers
+        allow_downloads:
+          type: boolean
+          description: Allow fillers to download the document
+        redirect_url:
+          type: string
+          format: uri
+          description: URL to redirect after form completion
+        name_required:
+          type: boolean
+          description: Require name from fillers
+        custom_message:
+          type: string
+          description: Custom message shown to fillers
+        notification_emails:
+          type: array
+          items:
+            type: string
+            format: email
+          description: Email addresses to notify on submission
+        notifications:
+          type: string
+          description: Notifications mode
+        enforce_required_fields:
+          type: boolean
+          description: Prevent closing before filling all required fields
+        custom_logo_id:
+          type: integer
+          description: Custom branding logo ID
+        welcome_screen:
+          type: boolean
+          description: Show welcome agreement on each open
+        reusable:
+          type: boolean
+          description: Copy form to owner as fillable after completion
+        callback_url:
+          type: string
+          format: uri
+          description: Webhook callback URL for submissions
+        signature_stamp:
+          type: string
+          description: Signature stamp type
+        fillable_fields:
+          type: object
+          description: Pre-filled field values
+        folder_id:
+          type: integer
+          description: Folder ID to organize the form
+        additional_documents:
+          type: array
+          items:
+            type: object
+          description: Additional documents required after filling
+
+    FillableFormList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/FillableForm'
+
+    FilledForm:
+      type: object
+      properties:
+        id:
+          type: integer
+        link_to_fill_id:
+          type: integer
+        status:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        ip:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    FilledFormList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilledForm'
+
+    AdditionalDocument:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    SignatureRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        document_id:
+          type: integer
+        method:
+          type: string
+          enum: [SendToEach, SendToGroup]
+        envelope_name:
+          type: string
+        status:
+          type: string
+          enum: [awaiting, completed, cancelled]
+        sign_in_order:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        recipients:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recipient'
+
+    SignatureRequestInput:
+      type: object
+      required:
+        - document_id
+        - recipients
+        - method
+      properties:
+        document_id:
+          type: integer
+          description: ID of the template to use for the signature request
+        method:
+          type: string
+          enum: [SendToEach, SendToGroup]
+          description: Signature method
+        envelope_name:
+          type: string
+          description: Envelope name (required for SendToGroup)
+        sign_in_order:
+          type: boolean
+          description: Whether recipients must sign in order (SendToGroup)
+        security_pin:
+          type: string
+          description: Security PIN required to access the document
+        callback_url:
+          type: string
+          format: uri
+          description: Webhook URL for signature events
+        additional_documents:
+          type: array
+          items:
+            type: object
+          description: Additional documents to collect
+        recipients:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipientInput'
+
+    SignatureRequestList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignatureRequest'
+
+    Recipient:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        status:
+          type: string
+          enum: [awaiting, signed, cancelled]
+        role:
+          type: integer
+        order:
+          type: integer
+
+    RecipientInput:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+          description: Recipient email address
+        name:
+          type: string
+          description: Recipient name
+        role:
+          type: integer
+          description: Role ID for SendToGroup method
+        access:
+          type: string
+          description: Recipient access type (fill or sign)
+        message:
+          type: string
+          description: Custom message to the recipient
+        phone_number:
+          type: string
+          description: Phone number for SMS verification
+
+    Callback:
+      type: object
+      properties:
+        id:
+          type: integer
+        document_id:
+          type: integer
+        callback_url:
+          type: string
+          format: uri
+        event:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    CallbackInput:
+      type: object
+      required:
+        - callback_url
+      properties:
+        document_id:
+          type: integer
+          description: Document ID to attach callback to
+        callback_url:
+          type: string
+          format: uri
+          description: Webhook URL to receive notifications
+        event:
+          type: string
+          description: Event type to trigger the callback
+
+    CallbackList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Callback'
+
+    Folder:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    FolderInput:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Folder name
+
+    FolderList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Folder'
+
+    Token:
+      type: object
+      properties:
+        id:
+          type: integer
+        document_id:
+          type: integer
+        hash:
+          type: string
+          description: Token hash for embedding
+        expires_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+
+    TokenInput:
+      type: object
+      required:
+        - document_id
+      properties:
+        document_id:
+          type: integer
+          description: Document ID to create token for
+        expires_in:
+          type: integer
+          description: Token expiration in seconds
+
+    TokenList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Token'
+
+    CustomLogo:
+      type: object
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+
+    CustomLogoList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomLogo'
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    MergeInput:
+      type: object
+      required:
+        - documents
+      properties:
+        documents:
+          type: array
+          items:
+            type: object
+            properties:
+              document_id:
+                type: integer
+                description: ID of the template to merge
+          description: List of document IDs to merge in order
+        name:
+          type: string
+          description: Name for the merged document
+        folder_id:
+          type: integer
+          description: Folder ID for the merged document

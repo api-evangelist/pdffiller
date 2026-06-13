@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api.pdffiller.com/v2/schemas/signature-request",
+  "title": "SignatureRequest",
+  "description": "An eSignature workflow request that sends a PDF document to one or more recipients for signing.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique identifier for the signature request"
+    },
+    "document_id": {
+      "type": "integer",
+      "description": "ID of the source template document"
+    },
+    "method": {
+      "type": "string",
+      "enum": ["SendToEach", "SendToGroup"],
+      "description": "Signing method: SendToEach (each recipient signs independently) or SendToGroup (sequential envelope signing)"
+    },
+    "envelope_name": {
+      "type": ["string", "null"],
+      "description": "Name for the signing envelope (required for SendToGroup method)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["awaiting", "completed", "cancelled"],
+      "description": "Current status of the signature request"
+    },
+    "sign_in_order": {
+      "type": "boolean",
+      "description": "Whether recipients must sign in the defined order (SendToGroup)"
+    },
+    "security_pin": {
+      "type": ["string", "null"],
+      "description": "PIN code required by recipients to access the document"
+    },
+    "callback_url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Webhook URL for signature event notifications"
+    },
+    "recipients": {
+      "type": "array",
+      "description": "List of recipients for the signature request",
+      "items": {
+        "$ref": "#/definitions/Recipient"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the signature request was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the signature request was last updated"
+    }
+  },
+  "required": ["id", "document_id", "method", "status", "recipients"],
+  "definitions": {
+    "Recipient": {
+      "type": "object",
+      "description": "A person invited to sign or fill a signature request document",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Unique identifier for the recipient"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Recipient email address"
+        },
+        "name": {
+          "type": ["string", "null"],
+          "description": "Recipient display name"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["awaiting", "signed", "cancelled"],
+          "description": "Recipient signing status"
+        },
+        "role": {
+          "type": ["integer", "null"],
+          "description": "Role ID assigned to this recipient (SendToGroup)"
+        },
+        "order": {
+          "type": ["integer", "null"],
+          "description": "Signing order position (SendToGroup)"
+        },
+        "phone_number": {
+          "type": ["string", "null"],
+          "description": "Phone number for SMS verification"
+        },
+        "access": {
+          "type": ["string", "null"],
+          "description": "Recipient access type (fill or sign)"
+        },
+        "message": {
+          "type": ["string", "null"],
+          "description": "Custom message sent to this recipient"
+        }
+      },
+      "required": ["email"]
+    }
+  }
+}

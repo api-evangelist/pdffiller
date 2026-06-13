@@ -1,0 +1,53 @@
+{
+  "title": "Create Fillable Form (LinkToFill)",
+  "description": "Example request to create a public fillable form from an existing template with email notification.",
+  "request": {
+    "method": "POST",
+    "url": "https://api.pdffiller.com/v2/fillable_forms",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "document_id": 12345678,
+      "name": "Customer Intake Form",
+      "access": "public",
+      "status": "active",
+      "email_required": true,
+      "name_required": true,
+      "allow_downloads": false,
+      "redirect_url": "https://example.com/thank-you",
+      "custom_message": "Please complete this form. All fields marked with * are required.",
+      "notification_emails": ["team@example.com", "admin@example.com"],
+      "notifications": "each",
+      "enforce_required_fields": true,
+      "reusable": true,
+      "callback_url": "https://example.com/webhooks/pdffiller",
+      "folder_id": 987
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": 55001234,
+      "document_id": 12345678,
+      "name": "Customer Intake Form",
+      "access": "public",
+      "status": "active",
+      "email_required": true,
+      "name_required": true,
+      "allow_downloads": false,
+      "redirect_url": "https://example.com/thank-you",
+      "custom_message": "Please complete this form. All fields marked with * are required.",
+      "notification_emails": ["team@example.com", "admin@example.com"],
+      "notifications": "each",
+      "enforce_required_fields": true,
+      "reusable": true,
+      "callback_url": "https://example.com/webhooks/pdffiller",
+      "short_url": "https://pdf.ac/xKy7z",
+      "folder_id": 987,
+      "created_at": "2026-06-13T10:00:00Z",
+      "updated_at": "2026-06-13T10:00:00Z"
+    }
+  }
+}

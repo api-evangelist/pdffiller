@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api.pdffiller.com/v2/schemas/template",
+  "title": "Template",
+  "description": "A PDF document template stored in PDFfiller used as the source for fillable forms and signature requests.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique identifier for the template"
+    },
+    "name": {
+      "type": "string",
+      "description": "Template name"
+    },
+    "type": {
+      "type": "string",
+      "description": "Document type"
+    },
+    "status": {
+      "type": "string",
+      "description": "Template status"
+    },
+    "page_count": {
+      "type": "integer",
+      "description": "Number of pages in the document"
+    },
+    "folder_id": {
+      "type": ["integer", "null"],
+      "description": "ID of the folder containing this template"
+    },
+    "thumbnail": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of the template preview thumbnail"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the template was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the template was last updated"
+    }
+  },
+  "required": ["id", "name"]
+}

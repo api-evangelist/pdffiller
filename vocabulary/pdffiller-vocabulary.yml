@@ -1,0 +1,117 @@
+vocabulary:
+  name: PDFfiller API Vocabulary
+  description: Terms and concepts used across the PDFfiller REST API for PDF editing, form filling, and eSignature workflows.
+  url: https://api.pdffiller.com/v2/
+  version: '2.0'
+
+terms:
+
+  - term: Template
+    description: A PDF document stored in PDFfiller that serves as the source for fillable forms and signature requests. Templates can have defined fields, roles, and pages.
+    type: Resource
+    endpoints:
+      - /v2/templates
+      - /v2/templates/{template_id}
+
+  - term: FillableForm
+    description: A shareable document fill request (LinkToFill) created from a template. Recipients access the form via a short URL and submit filled data. Supports custom access controls, notifications, and branding.
+    type: Resource
+    endpoints:
+      - /v2/fillable_forms
+      - /v2/fillable_forms/{link_to_fill_id}
+
+  - term: FilledForm
+    description: A completed submission of a FillableForm by an end user. Contains the submitted field values and metadata about the filler.
+    type: Resource
+    endpoints:
+      - /v2/fillable_forms/{link_to_fill_id}/filled_forms
+      - /v2/fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}
+
+  - term: SignatureRequest
+    description: An eSignature workflow that sends a document to one or more recipients for signing. Supports SendToEach (parallel) and SendToGroup (sequential, envelope-based) methods.
+    type: Resource
+    endpoints:
+      - /v2/signature_requests
+      - /v2/signature_requests/{signature_request_id}
+
+  - term: Recipient
+    description: A person invited to sign a document in a SignatureRequest. Can be assigned roles (for SendToGroup) and signing order.
+    type: Resource
+    endpoints:
+      - /v2/signature_requests/{signature_request_id}/recipients
+
+  - term: LinkToFill
+    description: A short shareable URL generated when a FillableForm is created. Anyone with the link (or with appropriate access permissions) can fill in the document.
+    type: Concept
+
+  - term: SendToEach
+    description: A signature request method where each recipient receives the document independently and signs their own copy.
+    type: Concept
+
+  - term: SendToGroup
+    description: A signature request method using envelopes where recipients sign the same document in a defined order (sequential signing).
+    type: Concept
+
+  - term: Callback
+    description: A webhook configuration that sends HTTP POST notifications to a specified URL when document events occur (e.g., form submitted, signature completed).
+    type: Resource
+    endpoints:
+      - /v2/callbacks
+      - /v2/callbacks/{callback_id}
+      - /v2/callbacks/global
+
+  - term: GlobalCallback
+    description: A single callback configuration that applies to all documents for the authenticated user, regardless of individual document callback settings.
+    type: Concept
+
+  - term: Folder
+    description: An organizational container for grouping templates and fillable forms.
+    type: Resource
+    endpoints:
+      - /v2/folders
+      - /v2/folders/{folder_id}
+
+  - term: Token
+    description: A time-limited authentication hash used to embed PDFfiller document editing capabilities into third-party applications without exposing credentials.
+    type: Resource
+    endpoints:
+      - /v2/tokens
+      - /v2/tokens/{token_id}
+
+  - term: CustomLogo
+    description: A branding image uploaded to PDFfiller for white-labeling the document experience shown to end users filling forms or signing documents.
+    type: Resource
+    endpoints:
+      - /v2/custom_branding/custom_logo
+      - /v2/custom_branding/custom_logo/{custom_logo_id}
+
+  - term: Application
+    description: An OAuth 2.0 application registration used to authenticate API requests. Applications have client IDs and secrets and can be scoped to specific domains.
+    type: Resource
+    endpoints:
+      - /v2/applications
+      - /v2/applications/{application_id}
+
+  - term: AdditionalDocument
+    description: A supplementary file attached to a filled form submission or signature request recipient response, such as an identity verification document.
+    type: Concept
+
+  - term: Field
+    description: An interactive element within a PDF template that a user can fill in. Field types include text, signature, date, checkbox, dropdown, and initials.
+    type: Concept
+
+  - term: Role
+    description: A named signer position defined within a template for use with SendToGroup signature requests. Recipients are assigned roles when creating signature requests.
+    type: Concept
+
+  - term: SignatureStamp
+    description: A visual stamp applied to the document indicating the signature type used (e.g., drawn, typed, or uploaded).
+    type: Concept
+
+  - term: EnvelopeName
+    description: The name given to a SendToGroup signature workflow that groups multiple recipients into a single signing envelope.
+    type: Concept
+
+  - term: SecurityPin
+    description: An optional PIN code required by recipients before they can access and sign a document in a signature request.
+    type: Concept

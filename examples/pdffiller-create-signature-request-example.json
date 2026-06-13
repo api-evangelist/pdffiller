@@ -1,0 +1,60 @@
+{
+  "title": "Create Signature Request (SendToEach)",
+  "description": "Example request to send a PDF document to multiple recipients for individual signing.",
+  "request": {
+    "method": "POST",
+    "url": "https://api.pdffiller.com/v2/signature_requests",
+    "headers": {
+      "Authorization": "Bearer {access_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "document_id": 12345678,
+      "method": "SendToEach",
+      "callback_url": "https://example.com/webhooks/signatures",
+      "recipients": [
+        {
+          "email": "alice@example.com",
+          "name": "Alice Smith",
+          "message": "Please review and sign the attached agreement.",
+          "access": "sign"
+        },
+        {
+          "email": "bob@example.com",
+          "name": "Bob Jones",
+          "message": "Please review and sign the attached agreement.",
+          "access": "sign"
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 201,
+    "body": {
+      "id": 77009988,
+      "document_id": 12345678,
+      "method": "SendToEach",
+      "status": "awaiting",
+      "sign_in_order": false,
+      "callback_url": "https://example.com/webhooks/signatures",
+      "recipients": [
+        {
+          "id": 1001,
+          "email": "alice@example.com",
+          "name": "Alice Smith",
+          "status": "awaiting",
+          "access": "sign"
+        },
+        {
+          "id": 1002,
+          "email": "bob@example.com",
+          "name": "Bob Jones",
+          "status": "awaiting",
+          "access": "sign"
+        }
+      ],
+      "created_at": "2026-06-13T10:05:00Z",
+      "updated_at": "2026-06-13T10:05:00Z"
+    }
+  }
+}

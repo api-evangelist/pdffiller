@@ -1,0 +1,27 @@
+{
+  "title": "Obtain OAuth 2.0 Access Token",
+  "description": "Example request to authenticate using the password grant type and obtain an access token.",
+  "request": {
+    "method": "POST",
+    "url": "https://api.pdffiller.com/v2/oauth/token",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "grant_type": "password",
+      "client_id": "your_client_id",
+      "client_secret": "your_client_secret",
+      "username": "user@example.com",
+      "password": "your_password"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...",
+      "token_type": "Bearer",
+      "expires_in": 3600,
+      "refresh_token": "def50200a9d3c..."
+    }
+  }
+}

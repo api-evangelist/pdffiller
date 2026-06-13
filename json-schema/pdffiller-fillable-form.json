@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://api.pdffiller.com/v2/schemas/fillable-form",
+  "title": "FillableForm",
+  "description": "A shareable document fill request (LinkToFill) created from a template.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique identifier for the fillable form (link_to_fill_id)"
+    },
+    "document_id": {
+      "type": "integer",
+      "description": "ID of the source template"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the fillable form"
+    },
+    "access": {
+      "type": "string",
+      "enum": ["public", "private"],
+      "description": "Access level: public (anyone with link) or private (requires account)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "inactive"],
+      "description": "Whether the form is accepting submissions"
+    },
+    "email_required": {
+      "type": "boolean",
+      "description": "Whether fillers must provide their email address"
+    },
+    "name_required": {
+      "type": "boolean",
+      "description": "Whether fillers must provide their name"
+    },
+    "allow_downloads": {
+      "type": "boolean",
+      "description": "Whether fillers can download the completed document"
+    },
+    "redirect_url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "URL to redirect fillers after form completion"
+    },
+    "custom_message": {
+      "type": ["string", "null"],
+      "description": "Custom message shown to fillers"
+    },
+    "notification_emails": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "email"
+      },
+      "description": "Email addresses to notify on new submissions"
+    },
+    "notifications": {
+      "type": "string",
+      "description": "Notifications mode setting"
+    },
+    "reusable": {
+      "type": "boolean",
+      "description": "If true, a new fillable copy is created for each submission"
+    },
+    "enforce_required_fields": {
+      "type": "boolean",
+      "description": "Prevent form from being closed before all required fields are filled"
+    },
+    "welcome_screen": {
+      "type": "boolean",
+      "description": "Show a welcome agreement screen each time the form is opened"
+    },
+    "short_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Shareable short URL for the fillable form"
+    },
+    "callback_url": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Webhook URL called when a form is submitted"
+    },
+    "signature_stamp": {
+      "type": ["string", "null"],
+      "description": "Type of signature stamp applied"
+    },
+    "custom_logo_id": {
+      "type": ["integer", "null"],
+      "description": "ID of custom branding logo to display"
+    },
+    "folder_id": {
+      "type": ["integer", "null"],
+      "description": "ID of the folder containing this form"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the form was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the form was last updated"
+    }
+  },
+  "required": ["id", "document_id", "name", "status"]
+}
