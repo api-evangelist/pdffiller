@@ -1,15 +1,14 @@
 {
-  "provider": "pdffiller",
-  "blog_url": "https://blog.pdffiller.com",
-  "last_pulled": "2026-06-13",
-  "posts": [],
   "repo": "pdffiller",
   "feeds": [
     {
-      "source": "https://www.linkedin.com/company/pdffiller-com",
-      "error": "HTTPError"
+      "source": "https://blog.pdffiller.com",
+      "feed_url": "",
+      "saved": 1,
+      "method": "agent-scrape"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T13:00:49Z",
+  "post_count": 6,
+  "agent_pulled": "2026-06-27"
 }
