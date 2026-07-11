@@ -1,0 +1,21 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/pdffiller-pdffiller-api-openapi.yml
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+  - password
+schemes:
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: password
+    tokenUrl: https://api.pdffiller.com/v2/oauth/token
+    scopes: 2
+  - flow: clientCredentials
+    tokenUrl: https://api.pdffiller.com/v2/oauth/token
+    scopes: 2
+  sources:
+  - openapi/pdffiller-pdffiller-api-openapi.yml

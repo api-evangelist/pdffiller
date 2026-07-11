@@ -45,6 +45,10 @@ apis:
         url: https://developers.pdffiller.com/
         email: ''
 common:
+  - type: DomainSecurity
+    url: security/pdffiller-domain-security.yml
+  - type: Authentication
+    url: authentication/pdffiller-authentication.yml
   - type: OAuthScopes
     url: scopes/pdffiller-scopes.yml
   - type: Website
