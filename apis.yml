@@ -45,6 +45,8 @@ apis:
         url: https://developers.pdffiller.com/
         email: ''
 common:
+  - type: OAuthScopes
+    url: scopes/pdffiller-scopes.yml
   - type: Website
     url: https://www.pdffiller.com
   - type: Documentation
