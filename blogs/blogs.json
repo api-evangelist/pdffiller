@@ -2,13 +2,11 @@
   "repo": "pdffiller",
   "feeds": [
     {
-      "source": "https://blog.pdffiller.com",
-      "feed_url": "",
-      "saved": 1,
-      "method": "agent-scrape"
+      "source": "https://www.linkedin.com/company/pdffiller-com",
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-06-27T13:00:49Z",
-  "post_count": 6,
-  "agent_pulled": "2026-06-27"
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 11,
+  "agent_pulled": "2026-07-04"
 }
