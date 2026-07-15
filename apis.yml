@@ -45,6 +45,8 @@ apis:
         url: https://developers.pdffiller.com/
         email: ''
 common:
+  - type: AgenticAccess
+    url: agentic-access/pdffiller-agentic-access.yml
   - type: DomainSecurity
     url: security/pdffiller-domain-security.yml
   - type: Authentication
