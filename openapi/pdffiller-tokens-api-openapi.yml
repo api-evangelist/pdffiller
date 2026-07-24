@@ -1,0 +1,231 @@
+openapi: 3.0.3
+info:
+  title: PDFfiller REST Applications Tokens API
+  description: 'The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
+
+    '
+  version: '2.0'
+  contact:
+    name: PDFfiller Developer Support
+    url: https://developers.pdffiller.com/
+  license:
+    name: Proprietary
+    url: https://www.pdffiller.com/en/terms.htm
+servers:
+- url: https://api.pdffiller.com/v2
+  description: PDFfiller API v2
+security:
+- oauth2: []
+tags:
+- name: Tokens
+  description: Manage embedded document tokens
+paths:
+  /tokens:
+    get:
+      operationId: listTokens
+      summary: List all tokens
+      description: Returns a list of all embedded document tokens.
+      tags:
+      - Tokens
+      parameters:
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of tokens
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createToken
+      summary: Create a token
+      description: Creates a new embedded document token for embedding PDFfiller in third-party applications.
+      tags:
+      - Tokens
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenInput'
+      responses:
+        '201':
+          description: Token created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /tokens/{token_id}:
+    get:
+      operationId: getToken
+      summary: Get token by ID
+      description: Returns information about a specific embedded document token.
+      tags:
+      - Tokens
+      parameters:
+      - $ref: '#/components/parameters/token_id'
+      responses:
+        '200':
+          description: Token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateToken
+      summary: Update a token
+      description: Updates an existing embedded document token.
+      tags:
+      - Tokens
+      parameters:
+      - $ref: '#/components/parameters/token_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenInput'
+      responses:
+        '200':
+          description: Token updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteToken
+      summary: Delete a token
+      description: Removes the specified embedded document token.
+      tags:
+      - Tokens
+      parameters:
+      - $ref: '#/components/parameters/token_id'
+      responses:
+        '204':
+          description: Token deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    TokenList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Token'
+    Token:
+      type: object
+      properties:
+        id:
+          type: integer
+        document_id:
+          type: integer
+        hash:
+          type: string
+          description: Token hash for embedding
+        expires_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
+    TokenInput:
+      type: object
+      required:
+      - document_id
+      properties:
+        document_id:
+          type: integer
+          description: Document ID to create token for
+        expires_in:
+          type: integer
+          description: Token expiration in seconds
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+    token_id:
+      name: token_id
+      in: path
+      required: true
+      description: Unique identifier for the token
+      schema:
+        type: integer
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access
+        clientCredentials:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access

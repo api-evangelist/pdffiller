@@ -1,0 +1,225 @@
+openapi: 3.0.3
+info:
+  title: PDFfiller REST Applications Folders API
+  description: 'The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
+
+    '
+  version: '2.0'
+  contact:
+    name: PDFfiller Developer Support
+    url: https://developers.pdffiller.com/
+  license:
+    name: Proprietary
+    url: https://www.pdffiller.com/en/terms.htm
+servers:
+- url: https://api.pdffiller.com/v2
+  description: PDFfiller API v2
+security:
+- oauth2: []
+tags:
+- name: Folders
+  description: Organize documents into folders
+paths:
+  /folders:
+    get:
+      operationId: listFolders
+      summary: List all folders
+      description: Returns a list of all document folders.
+      tags:
+      - Folders
+      parameters:
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of folders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FolderList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createFolder
+      summary: Create a folder
+      description: Creates a new document folder.
+      tags:
+      - Folders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderInput'
+      responses:
+        '201':
+          description: Folder created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /folders/{folder_id}:
+    get:
+      operationId: getFolder
+      summary: Get folder by ID
+      description: Returns information about a specific folder.
+      tags:
+      - Folders
+      parameters:
+      - $ref: '#/components/parameters/folder_id'
+      responses:
+        '200':
+          description: Folder details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateFolder
+      summary: Update a folder
+      description: Updates an existing folder.
+      tags:
+      - Folders
+      parameters:
+      - $ref: '#/components/parameters/folder_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FolderInput'
+      responses:
+        '200':
+          description: Folder updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Folder'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteFolder
+      summary: Delete a folder
+      description: Removes the specified folder.
+      tags:
+      - Folders
+      parameters:
+      - $ref: '#/components/parameters/folder_id'
+      responses:
+        '204':
+          description: Folder deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    folder_id:
+      name: folder_id
+      in: path
+      required: true
+      description: Unique identifier for the folder
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+  schemas:
+    FolderInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Folder name
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
+    FolderList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Folder'
+    Folder:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access
+        clientCredentials:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access

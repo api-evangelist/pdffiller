@@ -1,0 +1,592 @@
+openapi: 3.0.3
+info:
+  title: PDFfiller REST Applications Fillable Forms API
+  description: 'The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
+
+    '
+  version: '2.0'
+  contact:
+    name: PDFfiller Developer Support
+    url: https://developers.pdffiller.com/
+  license:
+    name: Proprietary
+    url: https://www.pdffiller.com/en/terms.htm
+servers:
+- url: https://api.pdffiller.com/v2
+  description: PDFfiller API v2
+security:
+- oauth2: []
+tags:
+- name: Fillable Forms
+  description: Manage fillable form links and submissions
+paths:
+  /fillable_forms:
+    get:
+      operationId: listFillableForms
+      summary: List all fillable forms
+      description: Returns a list of all document fill requests (LinkToFill).
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of fillable forms
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FillableFormList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createFillableForm
+      summary: Create a fillable form
+      description: Creates a new document and shares it via a short URL (LinkToFill).
+      tags:
+      - Fillable Forms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FillableFormInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FillableFormInput'
+      responses:
+        '201':
+          description: Fillable form created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FillableForm'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /fillable_forms/{link_to_fill_id}:
+    get:
+      operationId: getFillableForm
+      summary: Get fillable form by ID
+      description: Returns information about a specific fill request item.
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/link_to_fill_id'
+      responses:
+        '200':
+          description: Fillable form details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FillableForm'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateFillableForm
+      summary: Update a fillable form
+      description: Updates an existing fill request.
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/link_to_fill_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FillableFormInput'
+      responses:
+        '200':
+          description: Fillable form updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FillableForm'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteFillableForm
+      summary: Delete a fillable form
+      description: Removes the specified fill request.
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/link_to_fill_id'
+      responses:
+        '204':
+          description: Fillable form deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /fillable_forms/{link_to_fill_id}/download:
+    get:
+      operationId: downloadFillableForm
+      summary: Download fillable form
+      description: Downloads the fillable form. May return 200 (file ready), 204 (in progress), or 202 (queued).
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/link_to_fill_id'
+      responses:
+        '200':
+          description: Form file ready for download
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '202':
+          description: File generation queued
+        '204':
+          description: File generation in progress
+  /fillable_forms/{link_to_fill_id}/filled_forms:
+    get:
+      operationId: listFilledForms
+      summary: List filled submissions for a fillable form
+      description: Returns a list of all submitted instances of a fill request.
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/link_to_fill_id'
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of filled form submissions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilledFormList'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}:
+    get:
+      operationId: getFilledForm
+      summary: Get a filled form submission
+      description: Returns information about a specific filled form submission.
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/link_to_fill_id'
+      - $ref: '#/components/parameters/filled_form_id'
+      responses:
+        '200':
+          description: Filled form submission details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilledForm'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteFilledForm
+      summary: Delete a filled form submission
+      description: Removes a specific filled form submission.
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/link_to_fill_id'
+      - $ref: '#/components/parameters/filled_form_id'
+      responses:
+        '204':
+          description: Filled form deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}/export:
+    get:
+      operationId: exportFilledForm
+      summary: Export filled form data
+      description: Exports the filled form data in a structured format.
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/link_to_fill_id'
+      - $ref: '#/components/parameters/filled_form_id'
+      responses:
+        '200':
+          description: Exported filled form data
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}/download:
+    get:
+      operationId: downloadFilledForm
+      summary: Download a filled form submission
+      description: Downloads the filled form as a PDF file.
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/link_to_fill_id'
+      - $ref: '#/components/parameters/filled_form_id'
+      responses:
+        '200':
+          description: Filled form PDF
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}/additional_documents:
+    get:
+      operationId: listFilledFormAdditionalDocuments
+      summary: List additional documents for filled submission
+      description: Returns all additional documents attached to a filled form submission.
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/link_to_fill_id'
+      - $ref: '#/components/parameters/filled_form_id'
+      responses:
+        '200':
+          description: Additional documents list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AdditionalDocument'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}/additional_documents/download:
+    get:
+      operationId: downloadAllFilledFormAdditionalDocuments
+      summary: Download all additional documents
+      description: Downloads all additional documents for a filled form submission as a ZIP archive.
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/link_to_fill_id'
+      - $ref: '#/components/parameters/filled_form_id'
+      responses:
+        '200':
+          description: ZIP archive of additional documents
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}/additional_documents/{additional_document_id}:
+    get:
+      operationId: getFilledFormAdditionalDocument
+      summary: Get a specific additional document
+      description: Returns information about a specific additional document attached to a submission.
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/link_to_fill_id'
+      - $ref: '#/components/parameters/filled_form_id'
+      - $ref: '#/components/parameters/additional_document_id'
+      responses:
+        '200':
+          description: Additional document details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdditionalDocument'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /fillable_forms/{link_to_fill_id}/filled_forms/{filled_form_id}/additional_documents/{additional_document_id}/download:
+    get:
+      operationId: downloadFilledFormAdditionalDocument
+      summary: Download a specific additional document
+      description: Downloads a specific additional document attached to a filled form submission.
+      tags:
+      - Fillable Forms
+      parameters:
+      - $ref: '#/components/parameters/link_to_fill_id'
+      - $ref: '#/components/parameters/filled_form_id'
+      - $ref: '#/components/parameters/additional_document_id'
+      responses:
+        '200':
+          description: Additional document file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    additional_document_id:
+      name: additional_document_id
+      in: path
+      required: true
+      description: Unique identifier for the additional document
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
+    link_to_fill_id:
+      name: link_to_fill_id
+      in: path
+      required: true
+      description: Unique identifier for the fillable form (LinkToFill)
+      schema:
+        type: integer
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+    filled_form_id:
+      name: filled_form_id
+      in: path
+      required: true
+      description: Unique identifier for the filled form submission
+      schema:
+        type: integer
+  schemas:
+    FillableFormList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/FillableForm'
+    FilledForm:
+      type: object
+      properties:
+        id:
+          type: integer
+        link_to_fill_id:
+          type: integer
+        status:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        ip:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    FillableFormInput:
+      type: object
+      properties:
+        document_id:
+          type: integer
+          description: ID of the document template to use
+        file:
+          type: string
+          description: File to be uploaded (alternative to document_id)
+        name:
+          type: string
+          description: New document name
+        access:
+          type: string
+          enum:
+          - public
+          - private
+          description: Access level for the fill request
+        status:
+          type: string
+          description: Document access permission
+        email_required:
+          type: boolean
+          description: Require email from fillers
+        allow_downloads:
+          type: boolean
+          description: Allow fillers to download the document
+        redirect_url:
+          type: string
+          format: uri
+          description: URL to redirect after form completion
+        name_required:
+          type: boolean
+          description: Require name from fillers
+        custom_message:
+          type: string
+          description: Custom message shown to fillers
+        notification_emails:
+          type: array
+          items:
+            type: string
+            format: email
+          description: Email addresses to notify on submission
+        notifications:
+          type: string
+          description: Notifications mode
+        enforce_required_fields:
+          type: boolean
+          description: Prevent closing before filling all required fields
+        custom_logo_id:
+          type: integer
+          description: Custom branding logo ID
+        welcome_screen:
+          type: boolean
+          description: Show welcome agreement on each open
+        reusable:
+          type: boolean
+          description: Copy form to owner as fillable after completion
+        callback_url:
+          type: string
+          format: uri
+          description: Webhook callback URL for submissions
+        signature_stamp:
+          type: string
+          description: Signature stamp type
+        fillable_fields:
+          type: object
+          description: Pre-filled field values
+        folder_id:
+          type: integer
+          description: Folder ID to organize the form
+        additional_documents:
+          type: array
+          items:
+            type: object
+          description: Additional documents required after filling
+    FillableForm:
+      type: object
+      properties:
+        id:
+          type: integer
+        document_id:
+          type: integer
+        name:
+          type: string
+        access:
+          type: string
+          enum:
+          - public
+          - private
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+        email_required:
+          type: boolean
+        allow_downloads:
+          type: boolean
+        redirect_url:
+          type: string
+          format: uri
+        name_required:
+          type: boolean
+        custom_message:
+          type: string
+        notifications:
+          type: string
+        reusable:
+          type: boolean
+        short_url:
+          type: string
+          format: uri
+        folder_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
+    FilledFormList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilledForm'
+    AdditionalDocument:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access
+        clientCredentials:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access

@@ -1,0 +1,179 @@
+openapi: 3.0.3
+info:
+  title: PDFfiller REST Applications Custom Logos API
+  description: 'The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
+
+    '
+  version: '2.0'
+  contact:
+    name: PDFfiller Developer Support
+    url: https://developers.pdffiller.com/
+  license:
+    name: Proprietary
+    url: https://www.pdffiller.com/en/terms.htm
+servers:
+- url: https://api.pdffiller.com/v2
+  description: PDFfiller API v2
+security:
+- oauth2: []
+tags:
+- name: Custom Logos
+  description: Manage custom branding logos
+paths:
+  /custom_branding/custom_logo:
+    get:
+      operationId: listCustomLogos
+      summary: List all custom logos
+      description: Returns a list of all custom branding logos.
+      tags:
+      - Custom Logos
+      parameters:
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: List of custom logos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomLogoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCustomLogo
+      summary: Upload a custom logo
+      description: Uploads a new custom branding logo.
+      tags:
+      - Custom Logos
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                logo:
+                  type: string
+                  format: binary
+                  description: Logo image file (PNG or JPG, square)
+      responses:
+        '201':
+          description: Custom logo uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomLogo'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /custom_branding/custom_logo/{custom_logo_id}:
+    get:
+      operationId: getCustomLogo
+      summary: Get custom logo by ID
+      description: Returns information about a specific custom logo.
+      tags:
+      - Custom Logos
+      parameters:
+      - $ref: '#/components/parameters/custom_logo_id'
+      responses:
+        '200':
+          description: Custom logo details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomLogo'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCustomLogo
+      summary: Delete a custom logo
+      description: Removes the specified custom branding logo.
+      tags:
+      - Custom Logos
+      parameters:
+      - $ref: '#/components/parameters/custom_logo_id'
+      responses:
+        '204':
+          description: Custom logo deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
+    custom_logo_id:
+      name: custom_logo_id
+      in: path
+      required: true
+      description: Unique identifier for the custom logo
+      schema:
+        type: integer
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+  schemas:
+    CustomLogo:
+      type: object
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
+    CustomLogoList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomLogo'
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access
+        clientCredentials:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access

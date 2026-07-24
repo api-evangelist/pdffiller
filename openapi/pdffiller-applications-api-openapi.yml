@@ -1,0 +1,299 @@
+openapi: 3.0.3
+info:
+  title: PDFfiller REST Applications API
+  description: 'The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
+
+    '
+  version: '2.0'
+  contact:
+    name: PDFfiller Developer Support
+    url: https://developers.pdffiller.com/
+  license:
+    name: Proprietary
+    url: https://www.pdffiller.com/en/terms.htm
+servers:
+- url: https://api.pdffiller.com/v2
+  description: PDFfiller API v2
+security:
+- oauth2: []
+tags:
+- name: Applications
+  description: Manage OAuth applications
+paths:
+  /applications:
+    get:
+      operationId: listApplications
+      summary: List all applications
+      description: Returns a list of all OAuth applications for the authenticated user.
+      tags:
+      - Applications
+      parameters:
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of applications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createApplication
+      summary: Create an application
+      description: Creates a new OAuth application.
+      tags:
+      - Applications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationInput'
+      responses:
+        '201':
+          description: Application created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /applications/{application_id}:
+    get:
+      operationId: getApplication
+      summary: Get application by ID
+      description: Lists information about the specified application.
+      tags:
+      - Applications
+      parameters:
+      - $ref: '#/components/parameters/application_id'
+      responses:
+        '200':
+          description: Application details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateApplication
+      summary: Update an application
+      description: Updates an existing OAuth application.
+      tags:
+      - Applications
+      parameters:
+      - $ref: '#/components/parameters/application_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationInput'
+      responses:
+        '200':
+          description: Application updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteApplication
+      summary: Delete an application
+      description: Deletes the specified OAuth application.
+      tags:
+      - Applications
+      parameters:
+      - $ref: '#/components/parameters/application_id'
+      responses:
+        '204':
+          description: Application deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /applications/{application_id}/users:
+    get:
+      operationId: getApplicationUsers
+      summary: List application users
+      description: Retrieves a list of users who authorized with the specified application.
+      tags:
+      - Applications
+      parameters:
+      - $ref: '#/components/parameters/application_id'
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of application users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    ApplicationInput:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Application name
+        description:
+          type: string
+          description: Application description
+        domain:
+          type: string
+          description: Application domain for authorization_code grant
+        logo:
+          type: string
+          description: Logo image (base64 string, file URL, or file upload)
+        embedded-domain:
+          type: string
+          description: Domain where the client will be embedded
+        all-domains:
+          type: boolean
+          description: Allow all domains flag
+    UserList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
+    ApplicationList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Application'
+    Application:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        domain:
+          type: string
+        embedded_domain:
+          type: string
+        all_domains:
+          type: boolean
+        logo:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+  parameters:
+    application_id:
+      name: application_id
+      in: path
+      required: true
+      description: Unique identifier for the application
+      schema:
+        type: integer
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access
+        clientCredentials:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access

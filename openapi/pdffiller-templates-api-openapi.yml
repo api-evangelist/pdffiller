@@ -1,0 +1,458 @@
+openapi: 3.0.3
+info:
+  title: PDFfiller REST Applications Templates API
+  description: 'The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
+
+    '
+  version: '2.0'
+  contact:
+    name: PDFfiller Developer Support
+    url: https://developers.pdffiller.com/
+  license:
+    name: Proprietary
+    url: https://www.pdffiller.com/en/terms.htm
+servers:
+- url: https://api.pdffiller.com/v2
+  description: PDFfiller API v2
+security:
+- oauth2: []
+tags:
+- name: Templates
+  description: Manage PDF document templates
+paths:
+  /templates:
+    get:
+      operationId: listTemplates
+      summary: List all templates
+      description: Returns a list of all document templates.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of templates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemplateList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createTemplate
+      summary: Create a template
+      description: Creates a new document template from an uploaded file or URL.
+      tags:
+      - Templates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TemplateInput'
+      responses:
+        '201':
+          description: Template created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /templates/{template_id}:
+    get:
+      operationId: getTemplate
+      summary: Get template by ID
+      description: Retrieves information about a specific template.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/template_id'
+      responses:
+        '200':
+          description: Template details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateTemplate
+      summary: Update a template
+      description: Updates an existing document template.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/template_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateInput'
+      responses:
+        '200':
+          description: Template updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteTemplate
+      summary: Delete a template
+      description: Removes the specified document template.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/template_id'
+      responses:
+        '204':
+          description: Template deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /templates/{template_id}/previews:
+    get:
+      operationId: getTemplatePreviews
+      summary: Get template previews
+      description: Retrieves preview images for a template.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/template_id'
+      - name: per_page
+        in: query
+        schema:
+          type: integer
+      - name: page
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Template preview images
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        page:
+                          type: integer
+                        url:
+                          type: string
+                          format: uri
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /templates/{template_id}/download:
+    get:
+      operationId: downloadTemplate
+      summary: Download template PDF
+      description: Downloads the filled template as a PDF file.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/template_id'
+      responses:
+        '200':
+          description: Template PDF file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /templates/{template_id}/original_document:
+    get:
+      operationId: downloadTemplateOriginal
+      summary: Download original template document
+      description: Downloads the original uploaded document for the template.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/template_id'
+      responses:
+        '200':
+          description: Original template document
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /templates/{template_id}/roles:
+    get:
+      operationId: getTemplateRoles
+      summary: Get template roles
+      description: Retrieves available signature roles for a template.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/template_id'
+      responses:
+        '200':
+          description: Template roles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Role'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /templates/{template_id}/fields:
+    get:
+      operationId: getTemplateFields
+      summary: Get template fields
+      description: Retrieves all fillable fields defined in a template.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/template_id'
+      responses:
+        '200':
+          description: Template fields
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Field'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /templates/{template_id}/filled_documents:
+    get:
+      operationId: getTemplateFilledDocuments
+      summary: Get filled documents for template
+      description: Retrieves all filled document instances created from a template.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/template_id'
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/page'
+      responses:
+        '200':
+          description: Filled documents list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilledDocumentList'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /templates/{template_id}/constructor:
+    get:
+      operationId: getTemplateConstructorUrl
+      summary: Get template constructor URL
+      description: Returns a URL to open the template in the PDFfiller constructor/editor.
+      tags:
+      - Templates
+      parameters:
+      - $ref: '#/components/parameters/template_id'
+      responses:
+        '200':
+          description: Constructor URL
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    format: uri
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Template:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        page_count:
+          type: integer
+        folder_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        thumbnail:
+          type: string
+          format: uri
+    FilledDocumentList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              status:
+                type: string
+              created_at:
+                type: string
+                format: date-time
+    Field:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - text
+          - signature
+          - date
+          - checkbox
+          - dropdown
+          - initials
+        page:
+          type: integer
+        required:
+          type: boolean
+        role:
+          type: string
+    Role:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        order:
+          type: integer
+    TemplateInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Template name
+        file:
+          type: string
+          description: File URL or base64 encoded file content
+        folder_id:
+          type: integer
+          description: Folder ID to place template in
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
+    TemplateList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
+  parameters:
+    template_id:
+      name: template_id
+      in: path
+      required: true
+      description: Unique identifier for the template
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access
+        clientCredentials:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access

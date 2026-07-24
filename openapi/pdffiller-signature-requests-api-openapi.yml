@@ -1,0 +1,588 @@
+openapi: 3.0.3
+info:
+  title: PDFfiller REST Applications Signature Requests API
+  description: 'The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
+
+    '
+  version: '2.0'
+  contact:
+    name: PDFfiller Developer Support
+    url: https://developers.pdffiller.com/
+  license:
+    name: Proprietary
+    url: https://www.pdffiller.com/en/terms.htm
+servers:
+- url: https://api.pdffiller.com/v2
+  description: PDFfiller API v2
+security:
+- oauth2: []
+tags:
+- name: Signature Requests
+  description: Manage eSignature requests and workflows
+paths:
+  /signature_requests/inbox:
+    get:
+      operationId: listSignatureRequestsInbox
+      summary: List inbox signature requests
+      description: Retrieves a list of all document signature requests in the inbox folder (requests sent to you).
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/order'
+      - name: status
+        in: query
+        description: Filter by signature request status
+        schema:
+          type: string
+          enum:
+          - awaiting
+          - signed
+          - cancelled
+      - name: date_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: date_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: List of inbox signature requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureRequestList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /signature_requests/inbox/download:
+    get:
+      operationId: downloadInboxSignatureRequests
+      summary: Download inbox signature requests
+      description: Downloads all documents for which a sender has requested your signature as a ZIP archive.
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order'
+      - name: status
+        in: query
+        schema:
+          type: string
+      - name: date_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: date_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: ZIP archive of inbox signature request documents
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+  /signature_requests:
+    get:
+      operationId: listSignatureRequests
+      summary: List all signature requests
+      description: Retrieves a list of all document signature requests sent by the authenticated user.
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/order'
+      - name: date_from
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: date_to
+        in: query
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: List of signature requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureRequestList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSignatureRequest
+      summary: Create a signature request
+      description: 'Creates a new eSignature request. Supports two methods: SendToEach (individual recipients) and SendToGroup (envelope with ordered signing). SendToGroup requires envelope_name, sign_in_order, and role parameters per recipient.
+
+        '
+      tags:
+      - Signature Requests
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignatureRequestInput'
+      responses:
+        '201':
+          description: Signature request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /signature_requests/{signature_request_id}:
+    get:
+      operationId: getSignatureRequest
+      summary: Get signature request by ID
+      description: Retrieves signature request information based on the signature request ID.
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/signature_request_id'
+      responses:
+        '200':
+          description: Signature request details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignatureRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSignatureRequest
+      summary: Delete a signature request
+      description: Cancels and removes the specified signature request.
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/signature_request_id'
+      responses:
+        '204':
+          description: Signature request deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /signature_requests/{signature_request_id}/certificate:
+    get:
+      operationId: getSignatureRequestCertificate
+      summary: Get signature certificate
+      description: Retrieves the signing certificate for a completed signature request.
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/signature_request_id'
+      responses:
+        '200':
+          description: Signature certificate
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificate_url:
+                    type: string
+                    format: uri
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /signature_requests/{signature_request_id}/signed_document:
+    get:
+      operationId: downloadSignedDocument
+      summary: Download signed document
+      description: Downloads the completed signed document as a PDF.
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/signature_request_id'
+      responses:
+        '200':
+          description: Signed document PDF
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /signature_requests/{signature_request_id}/recipients:
+    get:
+      operationId: listSignatureRequestRecipients
+      summary: List signature request recipients
+      description: Returns all recipients for a specific signature request.
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/signature_request_id'
+      responses:
+        '200':
+          description: List of recipients
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Recipient'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /signature_requests/{signature_request_id}/recipients/{recipient_id}:
+    get:
+      operationId: getSignatureRequestRecipient
+      summary: Get signature request recipient
+      description: Returns information about a specific recipient.
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/signature_request_id'
+      - $ref: '#/components/parameters/recipient_id'
+      responses:
+        '200':
+          description: Recipient details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipient'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: remindSignatureRequestRecipient
+      summary: Send reminder to recipient
+      description: Sends a reminder notification to a specific recipient.
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/signature_request_id'
+      - $ref: '#/components/parameters/recipient_id'
+      responses:
+        '200':
+          description: Reminder sent
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /signature_requests/{signature_request_id}/recipients/{recipient_id}/additional_documents:
+    get:
+      operationId: listRecipientAdditionalDocuments
+      summary: List recipient additional documents
+      description: Returns all additional documents for a specific signature request recipient.
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/signature_request_id'
+      - $ref: '#/components/parameters/recipient_id'
+      responses:
+        '200':
+          description: Additional documents list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AdditionalDocument'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /signature_requests/{signature_request_id}/recipients/{recipient_id}/additional_documents/download:
+    get:
+      operationId: downloadRecipientAdditionalDocuments
+      summary: Download all recipient additional documents
+      description: Downloads all additional documents for a recipient as a ZIP archive.
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/signature_request_id'
+      - $ref: '#/components/parameters/recipient_id'
+      responses:
+        '200':
+          description: ZIP archive of additional documents
+          content:
+            application/zip:
+              schema:
+                type: string
+                format: binary
+  /signature_requests/{signature_request_id}/recipients/{recipient_id}/additional_documents/{additional_document_id}:
+    get:
+      operationId: getRecipientAdditionalDocument
+      summary: Get recipient additional document
+      description: Returns information about a specific additional document for a recipient.
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/signature_request_id'
+      - $ref: '#/components/parameters/recipient_id'
+      - $ref: '#/components/parameters/additional_document_id'
+      responses:
+        '200':
+          description: Additional document details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdditionalDocument'
+  ? /signature_requests/{signature_request_id}/recipients/{recipient_id}/additional_documents/{additional_document_id}/download
+  : get:
+      operationId: downloadRecipientAdditionalDocument
+      summary: Download recipient additional document
+      description: Downloads a specific additional document for a recipient.
+      tags:
+      - Signature Requests
+      parameters:
+      - $ref: '#/components/parameters/signature_request_id'
+      - $ref: '#/components/parameters/recipient_id'
+      - $ref: '#/components/parameters/additional_document_id'
+      responses:
+        '200':
+          description: Additional document file
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+components:
+  parameters:
+    additional_document_id:
+      name: additional_document_id
+      in: path
+      required: true
+      description: Unique identifier for the additional document
+      schema:
+        type: integer
+    recipient_id:
+      name: recipient_id
+      in: path
+      required: true
+      description: Unique identifier for the signature request recipient
+      schema:
+        type: integer
+    signature_request_id:
+      name: signature_request_id
+      in: path
+      required: true
+      description: Unique identifier for the signature request
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+  schemas:
+    SignatureRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        document_id:
+          type: integer
+        method:
+          type: string
+          enum:
+          - SendToEach
+          - SendToGroup
+        envelope_name:
+          type: string
+        status:
+          type: string
+          enum:
+          - awaiting
+          - completed
+          - cancelled
+        sign_in_order:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        recipients:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recipient'
+    RecipientInput:
+      type: object
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+          description: Recipient email address
+        name:
+          type: string
+          description: Recipient name
+        role:
+          type: integer
+          description: Role ID for SendToGroup method
+        access:
+          type: string
+          description: Recipient access type (fill or sign)
+        message:
+          type: string
+          description: Custom message to the recipient
+        phone_number:
+          type: string
+          description: Phone number for SMS verification
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
+    SignatureRequestList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignatureRequest'
+    SignatureRequestInput:
+      type: object
+      required:
+      - document_id
+      - recipients
+      - method
+      properties:
+        document_id:
+          type: integer
+          description: ID of the template to use for the signature request
+        method:
+          type: string
+          enum:
+          - SendToEach
+          - SendToGroup
+          description: Signature method
+        envelope_name:
+          type: string
+          description: Envelope name (required for SendToGroup)
+        sign_in_order:
+          type: boolean
+          description: Whether recipients must sign in order (SendToGroup)
+        security_pin:
+          type: string
+          description: Security PIN required to access the document
+        callback_url:
+          type: string
+          format: uri
+          description: Webhook URL for signature events
+        additional_documents:
+          type: array
+          items:
+            type: object
+          description: Additional documents to collect
+        recipients:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipientInput'
+    Recipient:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        status:
+          type: string
+          enum:
+          - awaiting
+          - signed
+          - cancelled
+        role:
+          type: integer
+        order:
+          type: integer
+    AdditionalDocument:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access
+        clientCredentials:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access

@@ -1,0 +1,278 @@
+openapi: 3.0.3
+info:
+  title: PDFfiller REST Applications Callbacks API
+  description: 'The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
+
+    '
+  version: '2.0'
+  contact:
+    name: PDFfiller Developer Support
+    url: https://developers.pdffiller.com/
+  license:
+    name: Proprietary
+    url: https://www.pdffiller.com/en/terms.htm
+servers:
+- url: https://api.pdffiller.com/v2
+  description: PDFfiller API v2
+security:
+- oauth2: []
+tags:
+- name: Callbacks
+  description: Manage webhook callbacks for document events
+paths:
+  /callbacks:
+    get:
+      operationId: listCallbacks
+      summary: List all callbacks
+      description: Returns a list of all webhook callback configurations.
+      tags:
+      - Callbacks
+      parameters:
+      - $ref: '#/components/parameters/per_page'
+      - $ref: '#/components/parameters/page'
+      - $ref: '#/components/parameters/order_by'
+      - $ref: '#/components/parameters/order'
+      responses:
+        '200':
+          description: List of callbacks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CallbackList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createCallback
+      summary: Create a callback
+      description: Creates a new webhook callback configuration for document events.
+      tags:
+      - Callbacks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CallbackInput'
+      responses:
+        '201':
+          description: Callback created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /callbacks/{callback_id}:
+    get:
+      operationId: getCallback
+      summary: Get callback by ID
+      description: Returns information about a specific callback configuration.
+      tags:
+      - Callbacks
+      parameters:
+      - $ref: '#/components/parameters/callback_id'
+      responses:
+        '200':
+          description: Callback details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateCallback
+      summary: Update a callback
+      description: Updates an existing webhook callback configuration.
+      tags:
+      - Callbacks
+      parameters:
+      - $ref: '#/components/parameters/callback_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CallbackInput'
+      responses:
+        '200':
+          description: Callback updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCallback
+      summary: Delete a callback
+      description: Removes the specified webhook callback configuration.
+      tags:
+      - Callbacks
+      parameters:
+      - $ref: '#/components/parameters/callback_id'
+      responses:
+        '204':
+          description: Callback deleted
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /callbacks/global:
+    get:
+      operationId: getGlobalCallback
+      summary: Get global callback
+      description: Returns the global webhook callback configuration that applies to all documents.
+      tags:
+      - Callbacks
+      responses:
+        '200':
+          description: Global callback configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updateGlobalCallback
+      summary: Update global callback
+      description: Updates the global webhook callback configuration.
+      tags:
+      - Callbacks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CallbackInput'
+      responses:
+        '200':
+          description: Global callback updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Callback'
+    delete:
+      operationId: deleteGlobalCallback
+      summary: Delete global callback
+      description: Removes the global webhook callback configuration.
+      tags:
+      - Callbacks
+      responses:
+        '204':
+          description: Global callback deleted
+components:
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
+    callback_id:
+      name: callback_id
+      in: path
+      required: true
+      description: Unique identifier for the callback
+      schema:
+        type: integer
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+  schemas:
+    Callback:
+      type: object
+      properties:
+        id:
+          type: integer
+        document_id:
+          type: integer
+        callback_url:
+          type: string
+          format: uri
+        event:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    CallbackInput:
+      type: object
+      required:
+      - callback_url
+      properties:
+        document_id:
+          type: integer
+          description: Document ID to attach callback to
+        callback_url:
+          type: string
+          format: uri
+          description: Webhook URL to receive notifications
+        event:
+          type: string
+          description: Event type to trigger the callback
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
+    CallbackList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Callback'
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        password:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access
+        clientCredentials:
+          tokenUrl: https://api.pdffiller.com/v2/oauth/token
+          scopes:
+            read: Read access
+            write: Write access
