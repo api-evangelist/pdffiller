@@ -1,0 +1,34 @@
+{
+  "provider": "pdffiller",
+  "sources": [
+    "pdffiller-applications-api-openapi.yml",
+    "pdffiller-auth-api-openapi.yml",
+    "pdffiller-callbacks-api-openapi.yml",
+    "pdffiller-custom-logos-api-openapi.yml",
+    "pdffiller-fillable-forms-api-openapi.yml",
+    "pdffiller-folders-api-openapi.yml",
+    "pdffiller-signature-requests-api-openapi.yml",
+    "pdffiller-templates-api-openapi.yml",
+    "pdffiller-tokens-api-openapi.yml",
+    "pdffiller-tools-api-openapi.yml",
+    "pdffiller-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "pdffiller-applications-api-openapi.yml",
+    "pdffiller-auth-api-openapi.yml",
+    "pdffiller-callbacks-api-openapi.yml",
+    "pdffiller-custom-logos-api-openapi.yml",
+    "pdffiller-fillable-forms-api-openapi.yml",
+    "pdffiller-folders-api-openapi.yml",
+    "pdffiller-signature-requests-api-openapi.yml",
+    "pdffiller-templates-api-openapi.yml",
+    "pdffiller-tokens-api-openapi.yml",
+    "pdffiller-tools-api-openapi.yml",
+    "pdffiller-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
