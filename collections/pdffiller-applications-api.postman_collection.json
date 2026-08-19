@@ -1,0 +1,1058 @@
+{
+  "item": [
+    {
+      "id": "aa9bf223-fa99-431b-ae8c-cd49bb0daab4",
+      "name": "Applications",
+      "description": {
+        "content": "Manage OAuth applications",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d4eac331-aecd-481c-9eb7-715d3bfa6c52",
+          "name": "List all applications",
+          "request": {
+            "name": "List all applications",
+            "description": {
+              "content": "Returns a list of all OAuth applications for the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "15",
+                  "description": "Number of items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Field to sort results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0be9675f-67b1-434c-bfc0-5a1794324e80",
+              "name": "List of applications",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 5770,\n  \"per_page\": 8413,\n  \"page\": 2278,\n  \"items\": [\n    {\n      \"id\": 6988,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"domain\": \"string\",\n      \"embedded_domain\": \"string\",\n      \"all_domains\": true,\n      \"logo\": \"https://mKaxnYziCOMAUHjUObv.bysnzxcpRXneNOf9,VAzDUukPLJ6J6kjWW.SQja.CCK+yQiBi0Wd-lxOyXeIyDBlPwug7IjTjQJ\",\n      \"created_at\": \"2023-10-29T04:09:38.915Z\",\n      \"updated_at\": \"2009-07-09T17:51:11.256Z\"\n    },\n    {\n      \"id\": 2802,\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"domain\": \"string\",\n      \"embedded_domain\": \"string\",\n      \"all_domains\": true,\n      \"logo\": \"https://MbLAtNPxMc.pgrgnYzHRiY9U-oV7YiB7KyJbE3Kz9zz2nWqpme1IDvtO0,nnDge5qhDZbJ3s6NkPNJq0JW1Uk9KtjJn\",\n      \"created_at\": \"1978-04-17T09:31:26.421Z\",\n      \"updated_at\": \"1952-03-06T21:16:53.414Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cbcf1096-c26e-4c74-ab9c-1e9023adfe3f",
+              "name": "Authentication required or token invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 1386\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "22bd92a2-a6c6-4e2d-b8fb-640797beb81e",
+          "name": "Create an application",
+          "request": {
+            "name": "Create an application",
+            "description": {
+              "content": "Creates a new OAuth application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"logo\": \"<string>\",\n  \"embedded-domain\": \"<string>\",\n  \"all-domains\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bff5173c-6a02-4bc2-8d81-066ffd6e6a02",
+              "name": "Application created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"logo\": \"<string>\",\n  \"embedded-domain\": \"<string>\",\n  \"all-domains\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 8361,\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"domain\": \"string\",\n  \"embedded_domain\": \"string\",\n  \"all_domains\": false,\n  \"logo\": \"http://zovKrEHc.xfgSni4uW6eEvViIlaWBM-Cf1fqXX8QfSzAJHybm,gApLnt2DAdiaM8yhzMFPaxMRuUOCGBW.6X\",\n  \"created_at\": \"1986-02-22T01:52:05.186Z\",\n  \"updated_at\": \"2018-03-21T08:17:39.425Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42827d50-0901-485d-97ff-2957f60d6260",
+              "name": "Authentication required or token invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"logo\": \"<string>\",\n  \"embedded-domain\": \"<string>\",\n  \"all-domains\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 1386\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "096d5ec5-85e3-4c2e-8e9b-2b88e110596f",
+          "name": "Get application by ID",
+          "request": {
+            "name": "Get application by ID",
+            "description": {
+              "content": "Lists information about the specified application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":application_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "application_id",
+                  "description": "(Required) Unique identifier for the application"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "66bde8ac-7c33-4065-b925-1646cdba19ae",
+              "name": "Application details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":application_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) Unique identifier for the application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 8361,\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"domain\": \"string\",\n  \"embedded_domain\": \"string\",\n  \"all_domains\": false,\n  \"logo\": \"http://zovKrEHc.xfgSni4uW6eEvViIlaWBM-Cf1fqXX8QfSzAJHybm,gApLnt2DAdiaM8yhzMFPaxMRuUOCGBW.6X\",\n  \"created_at\": \"1986-02-22T01:52:05.186Z\",\n  \"updated_at\": \"2018-03-21T08:17:39.425Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b289b14-dda6-4020-ad8a-3a1d949de34d",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":application_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) Unique identifier for the application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 1386\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90c4eca0-e336-4da9-a973-94ff488725db",
+          "name": "Update an application",
+          "request": {
+            "name": "Update an application",
+            "description": {
+              "content": "Updates an existing OAuth application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":application_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "application_id",
+                  "description": "(Required) Unique identifier for the application"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"logo\": \"<string>\",\n  \"embedded-domain\": \"<string>\",\n  \"all-domains\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8d571c19-d11d-445d-a287-80275f551775",
+              "name": "Application updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":application_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) Unique identifier for the application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"logo\": \"<string>\",\n  \"embedded-domain\": \"<string>\",\n  \"all-domains\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 8361,\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"domain\": \"string\",\n  \"embedded_domain\": \"string\",\n  \"all_domains\": false,\n  \"logo\": \"http://zovKrEHc.xfgSni4uW6eEvViIlaWBM-Cf1fqXX8QfSzAJHybm,gApLnt2DAdiaM8yhzMFPaxMRuUOCGBW.6X\",\n  \"created_at\": \"1986-02-22T01:52:05.186Z\",\n  \"updated_at\": \"2018-03-21T08:17:39.425Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "98f2cb5e-ec2c-4354-a01f-6fb3fbf978ee",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":application_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) Unique identifier for the application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"logo\": \"<string>\",\n  \"embedded-domain\": \"<string>\",\n  \"all-domains\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 1386\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15c42fbc-3664-4a66-82b1-5c25a6ffbe79",
+          "name": "Delete an application",
+          "request": {
+            "name": "Delete an application",
+            "description": {
+              "content": "Deletes the specified OAuth application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":application_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "application_id",
+                  "description": "(Required) Unique identifier for the application"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21718c2e-604d-49b4-8009-c42c2364fa87",
+              "name": "Application deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":application_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) Unique identifier for the application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d8f96aa7-0757-4221-997e-7d4198003e4b",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":application_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) Unique identifier for the application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 1386\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f20d6f51-96d5-4a34-ae73-efc6e220a395",
+          "name": "List application users",
+          "request": {
+            "name": "List application users",
+            "description": {
+              "content": "Retrieves a list of users who authorized with the specified application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "applications",
+                ":application_id",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "15",
+                  "description": "Number of items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Field to sort results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "application_id",
+                  "description": "(Required) Unique identifier for the application"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5279f487-a781-48bb-945d-805ced3dc260",
+              "name": "List of application users",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":application_id",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) Unique identifier for the application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 307,\n  \"items\": [\n    {\n      \"id\": 2184,\n      \"email\": \"MXYnnLPQZNY0slX@ZI.qxf\",\n      \"name\": \"string\",\n      \"created_at\": \"2007-08-28T07:45:47.740Z\"\n    },\n    {\n      \"id\": 2104,\n      \"email\": \"SnVT2SY8KzXQ4Hx@OhgnwYDPaEORxfoQVMAOpxXNDHsybll.woy\",\n      \"name\": \"string\",\n      \"created_at\": \"2020-03-30T04:34:25.622Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31839e44-aeab-408e-877b-cc9fd4679ada",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "applications",
+                    ":application_id",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "application_id",
+                      "description": "(Required) Unique identifier for the application"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 1386\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pdffiller.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.pdffiller.com/v2/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "password_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b2dff1e4-a33f-4e4d-a6c8-7f1f7123b4fe",
+    "name": "PDFfiller REST Applications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.\n\n\nContact Support:\n Name: PDFfiller Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

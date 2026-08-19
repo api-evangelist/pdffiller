@@ -1,0 +1,2422 @@
+{
+  "item": [
+    {
+      "id": "bd15df43-331f-4422-b8bb-75c0112cd802",
+      "name": "Signature Requests",
+      "description": {
+        "content": "Manage eSignature requests and workflows",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c676cc03-994c-473d-b1bf-900b6304b97e",
+          "name": "List inbox signature requests",
+          "request": {
+            "name": "List inbox signature requests",
+            "description": {
+              "content": "Retrieves a list of all document signature requests in the inbox folder (requests sent to you).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests",
+                "inbox"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "15",
+                  "description": "Number of items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Field to sort results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by signature request status"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_from",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_to",
+                  "value": "<date>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c6e32e6f-fa40-4d1d-872c-dfe80d275a41",
+              "name": "List of inbox signature requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    "inbox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 5882,\n  \"per_page\": 9435,\n  \"page\": 8020,\n  \"items\": [\n    {\n      \"id\": 1740,\n      \"document_id\": 4143,\n      \"method\": \"SendToGroup\",\n      \"envelope_name\": \"string\",\n      \"status\": \"cancelled\",\n      \"sign_in_order\": true,\n      \"created_at\": \"1993-07-21T08:01:07.410Z\",\n      \"updated_at\": \"1962-08-27T08:39:29.761Z\",\n      \"recipients\": [\n        {\n          \"id\": 4768,\n          \"email\": \"WIasX-MJandy@uzYwxvijNoarvAtKhKY.ly\",\n          \"name\": \"string\",\n          \"status\": \"cancelled\",\n          \"role\": 4018,\n          \"order\": 7918\n        },\n        {\n          \"id\": 841,\n          \"email\": \"FpLqHRaJNP@ughoIbuwp.vpqh\",\n          \"name\": \"string\",\n          \"status\": \"signed\",\n          \"role\": 7345,\n          \"order\": 6538\n        }\n      ]\n    },\n    {\n      \"id\": 8496,\n      \"document_id\": 3770,\n      \"method\": \"SendToEach\",\n      \"envelope_name\": \"string\",\n      \"status\": \"cancelled\",\n      \"sign_in_order\": false,\n      \"created_at\": \"2019-06-05T16:06:28.209Z\",\n      \"updated_at\": \"1989-08-06T14:45:48.447Z\",\n      \"recipients\": [\n        {\n          \"id\": 6260,\n          \"email\": \"eIGU0U65YW@fyqiNlCbMOSEPLEwp.zt\",\n          \"name\": \"string\",\n          \"status\": \"awaiting\",\n          \"role\": 1714,\n          \"order\": 7619\n        },\n        {\n          \"id\": 6487,\n          \"email\": \"YChJ-E9@cXPjkbI.sdht\",\n          \"name\": \"string\",\n          \"status\": \"cancelled\",\n          \"role\": 8258,\n          \"order\": 4543\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1823bf46-30c3-429d-b3d8-2ba30ec8b54a",
+              "name": "Authentication required or token invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    "inbox"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 9577\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "afdbc934-1fc6-4543-b575-cfbd80f775e8",
+          "name": "Download inbox signature requests",
+          "request": {
+            "name": "Download inbox signature requests",
+            "description": {
+              "content": "Downloads all documents for which a sender has requested your signature as a ZIP archive.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests",
+                "inbox",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "15",
+                  "description": "Number of items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_from",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_to",
+                  "value": "<date>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/zip"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "94f656d8-3bd8-4391-9228-291bb6d69925",
+              "name": "ZIP archive of inbox signature request documents",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    "inbox",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/zip"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/zip"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e7ab406-c4af-4d3c-9baf-25c009858470",
+          "name": "List all signature requests",
+          "request": {
+            "name": "List all signature requests",
+            "description": {
+              "content": "Retrieves a list of all document signature requests sent by the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "15",
+                  "description": "Number of items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Field to sort results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_from",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_to",
+                  "value": "<date>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a5e5d69c-0051-45e6-a409-110c1b487a23",
+              "name": "List of signature requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 811,\n  \"per_page\": 5832,\n  \"page\": 2183,\n  \"items\": [\n    {\n      \"id\": 1418,\n      \"document_id\": 4830,\n      \"method\": \"SendToGroup\",\n      \"envelope_name\": \"string\",\n      \"status\": \"awaiting\",\n      \"sign_in_order\": true,\n      \"created_at\": \"1995-01-21T21:04:05.613Z\",\n      \"updated_at\": \"1999-03-21T02:19:06.104Z\",\n      \"recipients\": [\n        {\n          \"id\": 6210,\n          \"email\": \"6dMX62uA@QcjgzkwuONwYXC.dhvf\",\n          \"name\": \"string\",\n          \"status\": \"awaiting\",\n          \"role\": 9861,\n          \"order\": 5372\n        },\n        {\n          \"id\": 2514,\n          \"email\": \"jAC@VinApjvYhwNmfuCUsQvPrOPPzrJGz.jy\",\n          \"name\": \"string\",\n          \"status\": \"signed\",\n          \"role\": 4304,\n          \"order\": 2668\n        }\n      ]\n    },\n    {\n      \"id\": 984,\n      \"document_id\": 7206,\n      \"method\": \"SendToEach\",\n      \"envelope_name\": \"string\",\n      \"status\": \"completed\",\n      \"sign_in_order\": true,\n      \"created_at\": \"1972-01-27T02:03:36.520Z\",\n      \"updated_at\": \"1948-12-18T19:30:46.840Z\",\n      \"recipients\": [\n        {\n          \"id\": 3714,\n          \"email\": \"E1vPCop2u@KDvhwXyoEDmesTZkScHzeZMvag.kujl\",\n          \"name\": \"string\",\n          \"status\": \"signed\",\n          \"role\": 6582,\n          \"order\": 6288\n        },\n        {\n          \"id\": 8201,\n          \"email\": \"Xdmyp@eNxFQjiEmlLKafysdknPVUX.ybdf\",\n          \"name\": \"string\",\n          \"status\": \"cancelled\",\n          \"role\": 7399,\n          \"order\": 5933\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a49f4d8b-f1af-4aa6-810c-58780b61f464",
+              "name": "Authentication required or token invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "date_from",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_to",
+                      "value": "<date>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 9577\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03f83409-0cb2-4827-8b0a-6c39a8eaefe0",
+          "name": "Create a signature request",
+          "request": {
+            "name": "Create a signature request",
+            "description": {
+              "content": "Creates a new eSignature request. Supports two methods: SendToEach (individual recipients) and SendToGroup (envelope with ordered signing). SendToGroup requires envelope_name, sign_in_order, and role parameters per recipient.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_id\": \"<integer>\",\n  \"recipients\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"role\": \"<integer>\",\n      \"access\": \"<string>\",\n      \"message\": \"<string>\",\n      \"phone_number\": \"<string>\"\n    },\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"role\": \"<integer>\",\n      \"access\": \"<string>\",\n      \"message\": \"<string>\",\n      \"phone_number\": \"<string>\"\n    }\n  ],\n  \"method\": \"<string>\",\n  \"envelope_name\": \"<string>\",\n  \"sign_in_order\": \"<boolean>\",\n  \"security_pin\": \"<string>\",\n  \"callback_url\": \"<uri>\",\n  \"additional_documents\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4f818b51-6b2d-43b2-ac30-40beb09b6973",
+              "name": "Signature request created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_id\": \"<integer>\",\n  \"recipients\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"role\": \"<integer>\",\n      \"access\": \"<string>\",\n      \"message\": \"<string>\",\n      \"phone_number\": \"<string>\"\n    },\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"role\": \"<integer>\",\n      \"access\": \"<string>\",\n      \"message\": \"<string>\",\n      \"phone_number\": \"<string>\"\n    }\n  ],\n  \"method\": \"<string>\",\n  \"envelope_name\": \"<string>\",\n  \"sign_in_order\": \"<boolean>\",\n  \"security_pin\": \"<string>\",\n  \"callback_url\": \"<uri>\",\n  \"additional_documents\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 8647,\n  \"document_id\": 709,\n  \"method\": \"SendToEach\",\n  \"envelope_name\": \"string\",\n  \"status\": \"cancelled\",\n  \"sign_in_order\": false,\n  \"created_at\": \"2001-04-23T10:58:12.638Z\",\n  \"updated_at\": \"1994-08-13T02:36:53.070Z\",\n  \"recipients\": [\n    {\n      \"id\": 5599,\n      \"email\": \"tSR9QI7xF-P@OewyWWgWeT.bo\",\n      \"name\": \"string\",\n      \"status\": \"cancelled\",\n      \"role\": 8761,\n      \"order\": 5092\n    },\n    {\n      \"id\": 6098,\n      \"email\": \"ffFbCgxhbcU9@pAYHllGwoUuVWDrmYRJpGjyoBiRWKLzl.ioe\",\n      \"name\": \"string\",\n      \"status\": \"signed\",\n      \"role\": 8029,\n      \"order\": 1202\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d76dfe42-cd73-4c75-bbe3-00cce8783070",
+              "name": "Authentication required or token invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_id\": \"<integer>\",\n  \"recipients\": [\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"role\": \"<integer>\",\n      \"access\": \"<string>\",\n      \"message\": \"<string>\",\n      \"phone_number\": \"<string>\"\n    },\n    {\n      \"email\": \"<email>\",\n      \"name\": \"<string>\",\n      \"role\": \"<integer>\",\n      \"access\": \"<string>\",\n      \"message\": \"<string>\",\n      \"phone_number\": \"<string>\"\n    }\n  ],\n  \"method\": \"<string>\",\n  \"envelope_name\": \"<string>\",\n  \"sign_in_order\": \"<boolean>\",\n  \"security_pin\": \"<string>\",\n  \"callback_url\": \"<uri>\",\n  \"additional_documents\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 9577\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2c1ca72-523a-45a5-a7e3-2831b14a54b0",
+          "name": "Get signature request by ID",
+          "request": {
+            "name": "Get signature request by ID",
+            "description": {
+              "content": "Retrieves signature request information based on the signature request ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests",
+                ":signature_request_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "signature_request_id",
+                  "description": "(Required) Unique identifier for the signature request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f841cfd7-bb6a-4e0a-bf33-8579c5a04ba8",
+              "name": "Signature request details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 8647,\n  \"document_id\": 709,\n  \"method\": \"SendToEach\",\n  \"envelope_name\": \"string\",\n  \"status\": \"cancelled\",\n  \"sign_in_order\": false,\n  \"created_at\": \"2001-04-23T10:58:12.638Z\",\n  \"updated_at\": \"1994-08-13T02:36:53.070Z\",\n  \"recipients\": [\n    {\n      \"id\": 5599,\n      \"email\": \"tSR9QI7xF-P@OewyWWgWeT.bo\",\n      \"name\": \"string\",\n      \"status\": \"cancelled\",\n      \"role\": 8761,\n      \"order\": 5092\n    },\n    {\n      \"id\": 6098,\n      \"email\": \"ffFbCgxhbcU9@pAYHllGwoUuVWDrmYRJpGjyoBiRWKLzl.ioe\",\n      \"name\": \"string\",\n      \"status\": \"signed\",\n      \"role\": 8029,\n      \"order\": 1202\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e4956a65-cc17-4784-a04e-b019583e41ab",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 9577\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6a2fe82a-a88c-430d-8d06-76a116255fbe",
+          "name": "Delete a signature request",
+          "request": {
+            "name": "Delete a signature request",
+            "description": {
+              "content": "Cancels and removes the specified signature request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests",
+                ":signature_request_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "signature_request_id",
+                  "description": "(Required) Unique identifier for the signature request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "825746c2-7b32-467d-b981-330ed17de7da",
+              "name": "Signature request deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6dfb201e-c62d-4ee9-8073-44b35a9e7a03",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 9577\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "176cd16c-50b1-4832-b24d-2e8eb4f48a13",
+          "name": "Get signature certificate",
+          "request": {
+            "name": "Get signature certificate",
+            "description": {
+              "content": "Retrieves the signing certificate for a completed signature request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests",
+                ":signature_request_id",
+                "certificate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "signature_request_id",
+                  "description": "(Required) Unique identifier for the signature request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "95403f0d-6acf-4480-b40c-9b5b8633475c",
+              "name": "Signature certificate",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"certificate_url\": \"http://zMOOJiapkjgBjaMrpNOwFb.zjNjQa7dH-PnO-4j3s7RM8BlR0QpakX\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2536f9b3-eb53-455b-9fcd-f2c09e688895",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "certificate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 9577\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e7d2204-9fe5-4042-b068-8917e45cae3f",
+          "name": "Download signed document",
+          "request": {
+            "name": "Download signed document",
+            "description": {
+              "content": "Downloads the completed signed document as a PDF.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests",
+                ":signature_request_id",
+                "signed_document"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "signature_request_id",
+                  "description": "(Required) Unique identifier for the signature request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b08399d-270e-472c-b7c7-8f7e1c338a21",
+              "name": "Signed document PDF",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "signed_document"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "86cb993a-5fb5-43da-a738-e7a41bb79bb5",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "signed_document"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 9577\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "96f557bd-43c9-4e99-98f4-11b66f3baf18",
+          "name": "List signature request recipients",
+          "request": {
+            "name": "List signature request recipients",
+            "description": {
+              "content": "Returns all recipients for a specific signature request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests",
+                ":signature_request_id",
+                "recipients"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "signature_request_id",
+                  "description": "(Required) Unique identifier for the signature request"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "79637943-6f83-4e91-8e52-fd42ea55e17e",
+              "name": "List of recipients",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "recipients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": 4752,\n      \"email\": \"ZJD-BTU3crCr@SpoBHkEZWouLcZB.pqqv\",\n      \"name\": \"string\",\n      \"status\": \"signed\",\n      \"role\": 9139,\n      \"order\": 8071\n    },\n    {\n      \"id\": 6642,\n      \"email\": \"ldtgHwD5rdvq@vSBdbdaQrLiwUZilxjvALfkznVyQa.dixi\",\n      \"name\": \"string\",\n      \"status\": \"signed\",\n      \"role\": 9540,\n      \"order\": 1404\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14514676-0043-481a-b90d-974522a88733",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "recipients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 9577\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e1d96d12-c323-448b-a3f8-0e6ac21bc565",
+          "name": "Get signature request recipient",
+          "request": {
+            "name": "Get signature request recipient",
+            "description": {
+              "content": "Returns information about a specific recipient.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests",
+                ":signature_request_id",
+                "recipients",
+                ":recipient_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "signature_request_id",
+                  "description": "(Required) Unique identifier for the signature request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recipient_id",
+                  "description": "(Required) Unique identifier for the signature request recipient"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "62181f24-3e8e-45ed-a4e5-be6cf3239686",
+              "name": "Recipient details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "recipients",
+                    ":recipient_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recipient_id",
+                      "description": "(Required) Unique identifier for the signature request recipient"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4819,\n  \"email\": \"lzqWaD5lvw@eSpqkvbhG.bzp\",\n  \"name\": \"string\",\n  \"status\": \"cancelled\",\n  \"role\": 6230,\n  \"order\": 9247\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "377ca2f6-2177-4b54-9623-87f1b0209237",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "recipients",
+                    ":recipient_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recipient_id",
+                      "description": "(Required) Unique identifier for the signature request recipient"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 9577\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e75384a5-a28a-4108-98a5-4d90c7b2d143",
+          "name": "Send reminder to recipient",
+          "request": {
+            "name": "Send reminder to recipient",
+            "description": {
+              "content": "Sends a reminder notification to a specific recipient.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests",
+                ":signature_request_id",
+                "recipients",
+                ":recipient_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "signature_request_id",
+                  "description": "(Required) Unique identifier for the signature request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recipient_id",
+                  "description": "(Required) Unique identifier for the signature request recipient"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "42c50139-ee00-403d-b2bf-293a6a16f97a",
+              "name": "Reminder sent",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "recipients",
+                    ":recipient_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recipient_id",
+                      "description": "(Required) Unique identifier for the signature request recipient"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "91f53a31-44d8-4faf-80a6-d080e6369f20",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "recipients",
+                    ":recipient_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recipient_id",
+                      "description": "(Required) Unique identifier for the signature request recipient"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 9577\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf82c176-5cd0-49f7-ac27-778d3125bfca",
+          "name": "List recipient additional documents",
+          "request": {
+            "name": "List recipient additional documents",
+            "description": {
+              "content": "Returns all additional documents for a specific signature request recipient.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests",
+                ":signature_request_id",
+                "recipients",
+                ":recipient_id",
+                "additional_documents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "signature_request_id",
+                  "description": "(Required) Unique identifier for the signature request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recipient_id",
+                  "description": "(Required) Unique identifier for the signature request recipient"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "60b5cd94-44be-45dc-a35f-f6675c504473",
+              "name": "Additional documents list",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "recipients",
+                    ":recipient_id",
+                    "additional_documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recipient_id",
+                      "description": "(Required) Unique identifier for the signature request recipient"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": 9173,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"1971-06-10T15:43:28.315Z\"\n    },\n    {\n      \"id\": 5604,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"1961-03-04T02:19:25.242Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf62c1fc-0206-4f86-8afa-d31a2aab36aa",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "recipients",
+                    ":recipient_id",
+                    "additional_documents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recipient_id",
+                      "description": "(Required) Unique identifier for the signature request recipient"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 9577\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2719f92c-d050-4090-a54e-b15c4221e0ef",
+          "name": "Download all recipient additional documents",
+          "request": {
+            "name": "Download all recipient additional documents",
+            "description": {
+              "content": "Downloads all additional documents for a recipient as a ZIP archive.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests",
+                ":signature_request_id",
+                "recipients",
+                ":recipient_id",
+                "additional_documents",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "signature_request_id",
+                  "description": "(Required) Unique identifier for the signature request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recipient_id",
+                  "description": "(Required) Unique identifier for the signature request recipient"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/zip"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cb476401-5f4e-4c09-b8b9-eefb0699926d",
+              "name": "ZIP archive of additional documents",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "recipients",
+                    ":recipient_id",
+                    "additional_documents",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recipient_id",
+                      "description": "(Required) Unique identifier for the signature request recipient"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/zip"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/zip"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e9d21fee-3a90-4ef6-ac19-a76c8c8d7ec4",
+          "name": "Get recipient additional document",
+          "request": {
+            "name": "Get recipient additional document",
+            "description": {
+              "content": "Returns information about a specific additional document for a recipient.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests",
+                ":signature_request_id",
+                "recipients",
+                ":recipient_id",
+                "additional_documents",
+                ":additional_document_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "signature_request_id",
+                  "description": "(Required) Unique identifier for the signature request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recipient_id",
+                  "description": "(Required) Unique identifier for the signature request recipient"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "additional_document_id",
+                  "description": "(Required) Unique identifier for the additional document"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "32ef6475-ef04-4cbc-989a-5acfd5a0cb32",
+              "name": "Additional document details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "recipients",
+                    ":recipient_id",
+                    "additional_documents",
+                    ":additional_document_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recipient_id",
+                      "description": "(Required) Unique identifier for the signature request recipient"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "additional_document_id",
+                      "description": "(Required) Unique identifier for the additional document"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 3069,\n  \"name\": \"string\",\n  \"type\": \"string\",\n  \"status\": \"string\",\n  \"created_at\": \"1962-09-25T21:03:11.068Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "347c6c1d-c039-4b17-a951-a0faad4ad6af",
+          "name": "Download recipient additional document",
+          "request": {
+            "name": "Download recipient additional document",
+            "description": {
+              "content": "Downloads a specific additional document for a recipient.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "signature_requests",
+                ":signature_request_id",
+                "recipients",
+                ":recipient_id",
+                "additional_documents",
+                ":additional_document_id",
+                "download"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "signature_request_id",
+                  "description": "(Required) Unique identifier for the signature request"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "recipient_id",
+                  "description": "(Required) Unique identifier for the signature request recipient"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "additional_document_id",
+                  "description": "(Required) Unique identifier for the additional document"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "06ae5020-3dc4-419b-bff9-ffac5e0eca52",
+              "name": "Additional document file",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "signature_requests",
+                    ":signature_request_id",
+                    "recipients",
+                    ":recipient_id",
+                    "additional_documents",
+                    ":additional_document_id",
+                    "download"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "signature_request_id",
+                      "description": "(Required) Unique identifier for the signature request"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "recipient_id",
+                      "description": "(Required) Unique identifier for the signature request recipient"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "additional_document_id",
+                      "description": "(Required) Unique identifier for the additional document"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pdffiller.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.pdffiller.com/v2/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "password_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c68ef459-e16e-439c-92aa-b15d3b66eae6",
+    "name": "PDFfiller REST Applications Signature Requests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.\n\n\nContact Support:\n Name: PDFfiller Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

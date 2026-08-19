@@ -1,0 +1,1143 @@
+{
+  "item": [
+    {
+      "id": "889cd405-db7b-4e4b-b801-187ef67a0398",
+      "name": "Callbacks",
+      "description": {
+        "content": "Manage webhook callbacks for document events",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dd364df7-49e2-402c-a817-16ff710dda87",
+          "name": "List all callbacks",
+          "request": {
+            "name": "List all callbacks",
+            "description": {
+              "content": "Returns a list of all webhook callback configurations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "callbacks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "15",
+                  "description": "Number of items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Field to sort results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a6de3f4b-b2ea-4077-a72b-f6a509dfa3c3",
+              "name": "List of callbacks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 6899,\n  \"items\": [\n    {\n      \"id\": 2214,\n      \"document_id\": 6672,\n      \"callback_url\": \"https://JLiZSUCKJWKDAjqWkbqYkLpLIvThU.spuJmD3R8y41mUHOVqGxIN,gX4HuhxnNh9S2Mr8yTrSFXF6vbu.mGObdkAShrd\",\n      \"event\": \"string\",\n      \"created_at\": \"1957-07-07T23:59:28.273Z\"\n    },\n    {\n      \"id\": 7146,\n      \"document_id\": 9170,\n      \"callback_url\": \"https://lzfkEHTiC.hlaiVgRKbI8oMz.7xVFGFAhZGHO0oQ1lV,6HJegILT\",\n      \"event\": \"string\",\n      \"created_at\": \"1992-09-20T23:56:05.312Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a018e38a-638c-4890-8518-c421d2ad95a8",
+              "name": "Authentication required or token invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 1732\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94e298d3-19ea-49d6-910b-b6000be0a43d",
+          "name": "Create a callback",
+          "request": {
+            "name": "Create a callback",
+            "description": {
+              "content": "Creates a new webhook callback configuration for document events.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "callbacks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"callback_url\": \"<uri>\",\n  \"document_id\": \"<integer>\",\n  \"event\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6079defc-6268-4aea-8640-2b4b8386b80c",
+              "name": "Callback created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback_url\": \"<uri>\",\n  \"document_id\": \"<integer>\",\n  \"event\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 3071,\n  \"document_id\": 1877,\n  \"callback_url\": \"https://vJGncUnMucZrrkUCvUMWQWbJwhOvovUKR.vjLd27ZPCIGn64gxZ5aaseuo\",\n  \"event\": \"string\",\n  \"created_at\": \"2009-11-11T00:51:07.595Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "341dd618-708c-4893-8fd8-fd765f1da0c5",
+              "name": "Authentication required or token invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback_url\": \"<uri>\",\n  \"document_id\": \"<integer>\",\n  \"event\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 1732\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e25c6496-5c95-4a85-b903-1b832c806ecd",
+          "name": "Get callback by ID",
+          "request": {
+            "name": "Get callback by ID",
+            "description": {
+              "content": "Returns information about a specific callback configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "callbacks",
+                ":callback_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "callback_id",
+                  "description": "(Required) Unique identifier for the callback"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "07c53054-1fce-4a84-bee2-0e24308a708a",
+              "name": "Callback details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks",
+                    ":callback_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "callback_id",
+                      "description": "(Required) Unique identifier for the callback"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 3071,\n  \"document_id\": 1877,\n  \"callback_url\": \"https://vJGncUnMucZrrkUCvUMWQWbJwhOvovUKR.vjLd27ZPCIGn64gxZ5aaseuo\",\n  \"event\": \"string\",\n  \"created_at\": \"2009-11-11T00:51:07.595Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e51a7691-d595-4862-af37-15e1751f669c",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks",
+                    ":callback_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "callback_id",
+                      "description": "(Required) Unique identifier for the callback"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 1732\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bdc13c85-b552-4be7-89e9-22ecd2d5b336",
+          "name": "Update a callback",
+          "request": {
+            "name": "Update a callback",
+            "description": {
+              "content": "Updates an existing webhook callback configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "callbacks",
+                ":callback_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "callback_id",
+                  "description": "(Required) Unique identifier for the callback"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"callback_url\": \"<uri>\",\n  \"document_id\": \"<integer>\",\n  \"event\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8c647df7-5b33-49b3-84fb-ee3bbcba9f5c",
+              "name": "Callback updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks",
+                    ":callback_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "callback_id",
+                      "description": "(Required) Unique identifier for the callback"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback_url\": \"<uri>\",\n  \"document_id\": \"<integer>\",\n  \"event\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 3071,\n  \"document_id\": 1877,\n  \"callback_url\": \"https://vJGncUnMucZrrkUCvUMWQWbJwhOvovUKR.vjLd27ZPCIGn64gxZ5aaseuo\",\n  \"event\": \"string\",\n  \"created_at\": \"2009-11-11T00:51:07.595Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dbf8f82c-ef24-4306-a7c0-0afe16da6392",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks",
+                    ":callback_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "callback_id",
+                      "description": "(Required) Unique identifier for the callback"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback_url\": \"<uri>\",\n  \"document_id\": \"<integer>\",\n  \"event\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 1732\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4a3fee4-2c4d-458d-8d24-28561fca08f5",
+          "name": "Delete a callback",
+          "request": {
+            "name": "Delete a callback",
+            "description": {
+              "content": "Removes the specified webhook callback configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "callbacks",
+                ":callback_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "callback_id",
+                  "description": "(Required) Unique identifier for the callback"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "02f0f881-8d56-46e6-ad8c-5849ec945108",
+              "name": "Callback deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks",
+                    ":callback_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "callback_id",
+                      "description": "(Required) Unique identifier for the callback"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cdc881f8-4ae3-4c0a-abec-e7320ab5262d",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks",
+                    ":callback_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "callback_id",
+                      "description": "(Required) Unique identifier for the callback"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 1732\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "26b3f11b-c41b-4dd3-825c-4786c3b37d5c",
+          "name": "Get global callback",
+          "request": {
+            "name": "Get global callback",
+            "description": {
+              "content": "Returns the global webhook callback configuration that applies to all documents.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "callbacks",
+                "global"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c51e3106-b6cb-4e1c-b932-5ac9e5d8caab",
+              "name": "Global callback configuration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks",
+                    "global"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 3071,\n  \"document_id\": 1877,\n  \"callback_url\": \"https://vJGncUnMucZrrkUCvUMWQWbJwhOvovUKR.vjLd27ZPCIGn64gxZ5aaseuo\",\n  \"event\": \"string\",\n  \"created_at\": \"2009-11-11T00:51:07.595Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac90fee9-8e5b-4b8e-8ef2-7bcdebc6dbe4",
+              "name": "Authentication required or token invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks",
+                    "global"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 1732\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc49ba7a-ed74-401f-915d-b3592f610ed2",
+          "name": "Update global callback",
+          "request": {
+            "name": "Update global callback",
+            "description": {
+              "content": "Updates the global webhook callback configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "callbacks",
+                "global"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"callback_url\": \"<uri>\",\n  \"document_id\": \"<integer>\",\n  \"event\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ff42ae2f-2fcc-48c5-8df9-331e90f1b301",
+              "name": "Global callback updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks",
+                    "global"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"callback_url\": \"<uri>\",\n  \"document_id\": \"<integer>\",\n  \"event\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 3071,\n  \"document_id\": 1877,\n  \"callback_url\": \"https://vJGncUnMucZrrkUCvUMWQWbJwhOvovUKR.vjLd27ZPCIGn64gxZ5aaseuo\",\n  \"event\": \"string\",\n  \"created_at\": \"2009-11-11T00:51:07.595Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c52df8e7-3aea-42be-8bf1-aed1d6057fab",
+          "name": "Delete global callback",
+          "request": {
+            "name": "Delete global callback",
+            "description": {
+              "content": "Removes the global webhook callback configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "callbacks",
+                "global"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8681c488-b63f-41a2-a556-a32cff359487",
+              "name": "Global callback deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "callbacks",
+                    "global"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pdffiller.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.pdffiller.com/v2/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "password_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "199641dd-af81-44e0-8781-40ac62e16a60",
+    "name": "PDFfiller REST Applications Callbacks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.\n\n\nContact Support:\n Name: PDFfiller Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

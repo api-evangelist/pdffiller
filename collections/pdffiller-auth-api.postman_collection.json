@@ -1,0 +1,198 @@
+{
+  "item": [
+    {
+      "id": "f59ab49d-b93d-4b88-8d5b-6ada190d6535",
+      "name": "Auth",
+      "description": {
+        "content": "OAuth 2.0 authentication token management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d13c3994-a59c-4940-8f70-c989db25999c",
+          "name": "Obtain OAuth 2.0 access token",
+          "request": {
+            "name": "Obtain OAuth 2.0 access token",
+            "description": {
+              "content": "Exchanges credentials for an OAuth 2.0 access token using password or client_credentials grant types.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oauth",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"grant_type\": \"<string>\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "42411fdf-0341-44f6-8ba6-86cbd4025142",
+              "name": "Access token issued successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"grant_type\": \"<string>\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 9123,\n  \"refresh_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72134f55-b3a3-478d-9809-15f49c7b7b38",
+              "name": "Invalid credentials",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"grant_type\": \"<string>\",\n  \"client_id\": \"<string>\",\n  \"client_secret\": \"<string>\",\n  \"username\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pdffiller.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.pdffiller.com/v2/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "password_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "16dbb205-8315-44f2-b2fe-56cb5f516e60",
+    "name": "PDFfiller REST Applications Auth API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.\n\n\nContact Support:\n Name: PDFfiller Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

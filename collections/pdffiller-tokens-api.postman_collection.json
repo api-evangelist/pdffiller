@@ -1,0 +1,848 @@
+{
+  "item": [
+    {
+      "id": "659ee0dd-9d8a-42d0-9713-a658f345219f",
+      "name": "Tokens",
+      "description": {
+        "content": "Manage embedded document tokens",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8afdb92e-5dfd-4acc-8dbe-ba2349681876",
+          "name": "List all tokens",
+          "request": {
+            "name": "List all tokens",
+            "description": {
+              "content": "Returns a list of all embedded document tokens.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "15",
+                  "description": "Number of items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                },
+                {
+                  "disabled": false,
+                  "key": "order_by",
+                  "value": "<string>",
+                  "description": "Field to sort results by"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "df6d96b5-b213-443a-9bd3-7d11da8cc7b1",
+              "name": "List of tokens",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 647,\n  \"items\": [\n    {\n      \"id\": 1600,\n      \"document_id\": 4146,\n      \"hash\": \"string\",\n      \"expires_at\": \"2017-11-09T01:28:31.495Z\",\n      \"created_at\": \"2010-09-13T05:56:12.944Z\"\n    },\n    {\n      \"id\": 7118,\n      \"document_id\": 541,\n      \"hash\": \"string\",\n      \"expires_at\": \"2016-02-18T14:30:06.168Z\",\n      \"created_at\": \"1982-04-02T14:51:05.993Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4dbdde6-3d0b-4bee-b1be-371e461db256",
+              "name": "Authentication required or token invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "per_page",
+                      "value": "15"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "order_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 6233\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6d2329e-af23-4134-a92b-b3a1a2c26e8e",
+          "name": "Create a token",
+          "request": {
+            "name": "Create a token",
+            "description": {
+              "content": "Creates a new embedded document token for embedding PDFfiller in third-party applications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_id\": \"<integer>\",\n  \"expires_in\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0aa474c6-11bf-4607-b4c2-ed81a0e8e17a",
+              "name": "Token created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_id\": \"<integer>\",\n  \"expires_in\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6820,\n  \"document_id\": 7638,\n  \"hash\": \"string\",\n  \"expires_at\": \"1976-11-02T07:06:35.382Z\",\n  \"created_at\": \"1997-06-09T20:12:39.329Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d58357ed-61a0-4b47-afbf-f23975359553",
+              "name": "Authentication required or token invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_id\": \"<integer>\",\n  \"expires_in\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 6233\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "43e05061-fdfb-486f-87a2-c2c9cd2b8ca3",
+          "name": "Get token by ID",
+          "request": {
+            "name": "Get token by ID",
+            "description": {
+              "content": "Returns information about a specific embedded document token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "token_id",
+                  "description": "(Required) Unique identifier for the token"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "41f1fbd0-9846-4601-ae92-d5a43aff42e1",
+              "name": "Token details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Unique identifier for the token"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6820,\n  \"document_id\": 7638,\n  \"hash\": \"string\",\n  \"expires_at\": \"1976-11-02T07:06:35.382Z\",\n  \"created_at\": \"1997-06-09T20:12:39.329Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7632cf91-ae9f-4fbf-9e2f-33488cfdd26e",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Unique identifier for the token"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 6233\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2c9b261c-cee1-4c3e-9242-4b6f2376c6fd",
+          "name": "Update a token",
+          "request": {
+            "name": "Update a token",
+            "description": {
+              "content": "Updates an existing embedded document token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "token_id",
+                  "description": "(Required) Unique identifier for the token"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"document_id\": \"<integer>\",\n  \"expires_in\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "43386f78-fd21-44c5-9c9a-c0f9cc8c720f",
+              "name": "Token updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Unique identifier for the token"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_id\": \"<integer>\",\n  \"expires_in\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6820,\n  \"document_id\": 7638,\n  \"hash\": \"string\",\n  \"expires_at\": \"1976-11-02T07:06:35.382Z\",\n  \"created_at\": \"1997-06-09T20:12:39.329Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4378fc07-dda3-453a-9de8-e1765ef5da28",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Unique identifier for the token"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"document_id\": \"<integer>\",\n  \"expires_in\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 6233\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1a6135fc-d034-490a-931d-4b536d1f0cc8",
+          "name": "Delete a token",
+          "request": {
+            "name": "Delete a token",
+            "description": {
+              "content": "Removes the specified embedded document token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tokens",
+                ":token_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "token_id",
+                  "description": "(Required) Unique identifier for the token"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aa03e0d3-b1af-4691-a6ab-cc598c27bec8",
+              "name": "Token deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Unique identifier for the token"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "55e3b260-8d19-4488-90c1-7a9d7b0ed493",
+              "name": "Resource not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tokens",
+                    ":token_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "token_id",
+                      "description": "(Required) Unique identifier for the token"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 6233\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pdffiller.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.pdffiller.com/v2/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "password_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e336a86d-385c-4363-8128-531288c6e86c",
+    "name": "PDFfiller REST Applications Tokens API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.\n\n\nContact Support:\n Name: PDFfiller Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

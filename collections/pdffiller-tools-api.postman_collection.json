@@ -1,0 +1,202 @@
+{
+  "item": [
+    {
+      "id": "03b7deae-98bf-4290-9cd5-3cef6269d3c3",
+      "name": "Tools",
+      "description": {
+        "content": "Document utility tools (merge, convert)",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c44aff15-e82c-42b6-95b9-11e6821a3187",
+          "name": "Merge PDF documents",
+          "request": {
+            "name": "Merge PDF documents",
+            "description": {
+              "content": "Merges multiple PDF documents into a single PDF file.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "tools",
+                "merge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"documents\": [\n    {\n      \"document_id\": \"<integer>\"\n    },\n    {\n      \"document_id\": \"<integer>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"folder_id\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fec098f5-eb8c-416e-8118-f87f6822fdf9",
+              "name": "Merged document",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tools",
+                    "merge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documents\": [\n    {\n      \"document_id\": \"<integer>\"\n    },\n    {\n      \"document_id\": \"<integer>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"folder_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5039,\n  \"name\": \"string\",\n  \"url\": \"https://rr.lpgsy1Dn9jvec\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "37f78db5-78dc-483f-a148-b63113e4961d",
+              "name": "Authentication required or token invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "tools",
+                    "merge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"documents\": [\n    {\n      \"document_id\": \"<integer>\"\n    },\n    {\n      \"document_id\": \"<integer>\"\n    }\n  ],\n  \"name\": \"<string>\",\n  \"folder_id\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"error_description\": \"string\",\n  \"code\": 825\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.pdffiller.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://api.pdffiller.com/v2/oauth/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "password_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "108ab494-82fc-48c1-bab7-2a16beaea1e7",
+    "name": "PDFfiller REST Applications Tools API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.\n\n\nContact Support:\n Name: PDFfiller Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

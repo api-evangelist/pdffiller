@@ -1,0 +1,416 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDFfiller REST Applications Fillable Forms API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.pdffiller.com/v2/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fillable Forms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all fillable forms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/fillable_forms",
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort results by"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ]
+          },
+          "docs": "Returns a list of all document fill requests (LinkToFill)."
+        },
+        {
+          "info": {
+            "name": "Create a fillable form",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pdffiller.com/v2/fillable_forms",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new document and shares it via a short URL (LinkToFill)."
+        },
+        {
+          "info": {
+            "name": "Get fillable form by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/fillable_forms/:link_to_fill_id",
+            "params": [
+              {
+                "name": "link_to_fill_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the fillable form (LinkToFill)"
+              }
+            ]
+          },
+          "docs": "Returns information about a specific fill request item."
+        },
+        {
+          "info": {
+            "name": "Update a fillable form",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.pdffiller.com/v2/fillable_forms/:link_to_fill_id",
+            "params": [
+              {
+                "name": "link_to_fill_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the fillable form (LinkToFill)"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing fill request."
+        },
+        {
+          "info": {
+            "name": "Delete a fillable form",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pdffiller.com/v2/fillable_forms/:link_to_fill_id",
+            "params": [
+              {
+                "name": "link_to_fill_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the fillable form (LinkToFill)"
+              }
+            ]
+          },
+          "docs": "Removes the specified fill request."
+        },
+        {
+          "info": {
+            "name": "Download fillable form",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/fillable_forms/:link_to_fill_id/download",
+            "params": [
+              {
+                "name": "link_to_fill_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the fillable form (LinkToFill)"
+              }
+            ]
+          },
+          "docs": "Downloads the fillable form. May return 200 (file ready), 204 (in progress), or 202 (queued)."
+        },
+        {
+          "info": {
+            "name": "List filled submissions for a fillable form",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/fillable_forms/:link_to_fill_id/filled_forms",
+            "params": [
+              {
+                "name": "link_to_fill_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the fillable form (LinkToFill)"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort results by"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ]
+          },
+          "docs": "Returns a list of all submitted instances of a fill request."
+        },
+        {
+          "info": {
+            "name": "Get a filled form submission",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/fillable_forms/:link_to_fill_id/filled_forms/:filled_form_id",
+            "params": [
+              {
+                "name": "link_to_fill_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the fillable form (LinkToFill)"
+              },
+              {
+                "name": "filled_form_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the filled form submission"
+              }
+            ]
+          },
+          "docs": "Returns information about a specific filled form submission."
+        },
+        {
+          "info": {
+            "name": "Delete a filled form submission",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pdffiller.com/v2/fillable_forms/:link_to_fill_id/filled_forms/:filled_form_id",
+            "params": [
+              {
+                "name": "link_to_fill_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the fillable form (LinkToFill)"
+              },
+              {
+                "name": "filled_form_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the filled form submission"
+              }
+            ]
+          },
+          "docs": "Removes a specific filled form submission."
+        },
+        {
+          "info": {
+            "name": "Export filled form data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/fillable_forms/:link_to_fill_id/filled_forms/:filled_form_id/export",
+            "params": [
+              {
+                "name": "link_to_fill_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the fillable form (LinkToFill)"
+              },
+              {
+                "name": "filled_form_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the filled form submission"
+              }
+            ]
+          },
+          "docs": "Exports the filled form data in a structured format."
+        },
+        {
+          "info": {
+            "name": "Download a filled form submission",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/fillable_forms/:link_to_fill_id/filled_forms/:filled_form_id/download",
+            "params": [
+              {
+                "name": "link_to_fill_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the fillable form (LinkToFill)"
+              },
+              {
+                "name": "filled_form_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the filled form submission"
+              }
+            ]
+          },
+          "docs": "Downloads the filled form as a PDF file."
+        },
+        {
+          "info": {
+            "name": "List additional documents for filled submission",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/fillable_forms/:link_to_fill_id/filled_forms/:filled_form_id/additional_documents",
+            "params": [
+              {
+                "name": "link_to_fill_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the fillable form (LinkToFill)"
+              },
+              {
+                "name": "filled_form_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the filled form submission"
+              }
+            ]
+          },
+          "docs": "Returns all additional documents attached to a filled form submission."
+        },
+        {
+          "info": {
+            "name": "Download all additional documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/fillable_forms/:link_to_fill_id/filled_forms/:filled_form_id/additional_documents/download",
+            "params": [
+              {
+                "name": "link_to_fill_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the fillable form (LinkToFill)"
+              },
+              {
+                "name": "filled_form_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the filled form submission"
+              }
+            ]
+          },
+          "docs": "Downloads all additional documents for a filled form submission as a ZIP archive."
+        },
+        {
+          "info": {
+            "name": "Get a specific additional document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/fillable_forms/:link_to_fill_id/filled_forms/:filled_form_id/additional_documents/:additional_document_id",
+            "params": [
+              {
+                "name": "link_to_fill_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the fillable form (LinkToFill)"
+              },
+              {
+                "name": "filled_form_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the filled form submission"
+              },
+              {
+                "name": "additional_document_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the additional document"
+              }
+            ]
+          },
+          "docs": "Returns information about a specific additional document attached to a submission."
+        },
+        {
+          "info": {
+            "name": "Download a specific additional document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/fillable_forms/:link_to_fill_id/filled_forms/:filled_form_id/additional_documents/:additional_document_id/download",
+            "params": [
+              {
+                "name": "link_to_fill_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the fillable form (LinkToFill)"
+              },
+              {
+                "name": "filled_form_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the filled form submission"
+              },
+              {
+                "name": "additional_document_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the additional document"
+              }
+            ]
+          },
+          "docs": "Downloads a specific additional document attached to a filled form submission."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

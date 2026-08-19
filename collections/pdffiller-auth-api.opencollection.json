@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDFfiller REST Applications Auth API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.pdffiller.com/v2/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Obtain OAuth 2.0 access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pdffiller.com/v2/oauth/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchanges credentials for an OAuth 2.0 access token using password or client_credentials grant types.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

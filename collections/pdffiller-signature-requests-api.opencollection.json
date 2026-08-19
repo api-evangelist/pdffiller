@@ -1,0 +1,447 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PDFfiller REST Applications Signature Requests API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://api.pdffiller.com/v2/oauth/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Signature Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List inbox signature requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/signature_requests/inbox",
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort results by"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by signature request status"
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all document signature requests in the inbox folder (requests sent to you)."
+        },
+        {
+          "info": {
+            "name": "Download inbox signature requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/signature_requests/inbox/download",
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Downloads all documents for which a sender has requested your signature as a ZIP archive."
+        },
+        {
+          "info": {
+            "name": "List all signature requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/signature_requests",
+            "params": [
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort results by"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieves a list of all document signature requests sent by the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Create a signature request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.pdffiller.com/v2/signature_requests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new eSignature request. Supports two methods: SendToEach (individual recipients) and SendToGroup (envelope with ordered signing). SendToGroup requires envelope_name, sign_in_order, and role parameters per recipient.\n"
+        },
+        {
+          "info": {
+            "name": "Get signature request by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/signature_requests/:signature_request_id",
+            "params": [
+              {
+                "name": "signature_request_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request"
+              }
+            ]
+          },
+          "docs": "Retrieves signature request information based on the signature request ID."
+        },
+        {
+          "info": {
+            "name": "Delete a signature request",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.pdffiller.com/v2/signature_requests/:signature_request_id",
+            "params": [
+              {
+                "name": "signature_request_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request"
+              }
+            ]
+          },
+          "docs": "Cancels and removes the specified signature request."
+        },
+        {
+          "info": {
+            "name": "Get signature certificate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/signature_requests/:signature_request_id/certificate",
+            "params": [
+              {
+                "name": "signature_request_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request"
+              }
+            ]
+          },
+          "docs": "Retrieves the signing certificate for a completed signature request."
+        },
+        {
+          "info": {
+            "name": "Download signed document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/signature_requests/:signature_request_id/signed_document",
+            "params": [
+              {
+                "name": "signature_request_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request"
+              }
+            ]
+          },
+          "docs": "Downloads the completed signed document as a PDF."
+        },
+        {
+          "info": {
+            "name": "List signature request recipients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/signature_requests/:signature_request_id/recipients",
+            "params": [
+              {
+                "name": "signature_request_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request"
+              }
+            ]
+          },
+          "docs": "Returns all recipients for a specific signature request."
+        },
+        {
+          "info": {
+            "name": "Get signature request recipient",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/signature_requests/:signature_request_id/recipients/:recipient_id",
+            "params": [
+              {
+                "name": "signature_request_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request"
+              },
+              {
+                "name": "recipient_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request recipient"
+              }
+            ]
+          },
+          "docs": "Returns information about a specific recipient."
+        },
+        {
+          "info": {
+            "name": "Send reminder to recipient",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.pdffiller.com/v2/signature_requests/:signature_request_id/recipients/:recipient_id",
+            "params": [
+              {
+                "name": "signature_request_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request"
+              },
+              {
+                "name": "recipient_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request recipient"
+              }
+            ]
+          },
+          "docs": "Sends a reminder notification to a specific recipient."
+        },
+        {
+          "info": {
+            "name": "List recipient additional documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/signature_requests/:signature_request_id/recipients/:recipient_id/additional_documents",
+            "params": [
+              {
+                "name": "signature_request_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request"
+              },
+              {
+                "name": "recipient_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request recipient"
+              }
+            ]
+          },
+          "docs": "Returns all additional documents for a specific signature request recipient."
+        },
+        {
+          "info": {
+            "name": "Download all recipient additional documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/signature_requests/:signature_request_id/recipients/:recipient_id/additional_documents/download",
+            "params": [
+              {
+                "name": "signature_request_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request"
+              },
+              {
+                "name": "recipient_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request recipient"
+              }
+            ]
+          },
+          "docs": "Downloads all additional documents for a recipient as a ZIP archive."
+        },
+        {
+          "info": {
+            "name": "Get recipient additional document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/signature_requests/:signature_request_id/recipients/:recipient_id/additional_documents/:additional_document_id",
+            "params": [
+              {
+                "name": "signature_request_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request"
+              },
+              {
+                "name": "recipient_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request recipient"
+              },
+              {
+                "name": "additional_document_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the additional document"
+              }
+            ]
+          },
+          "docs": "Returns information about a specific additional document for a recipient."
+        },
+        {
+          "info": {
+            "name": "Download recipient additional document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.pdffiller.com/v2/signature_requests/:signature_request_id/recipients/:recipient_id/additional_documents/:additional_document_id/download",
+            "params": [
+              {
+                "name": "signature_request_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request"
+              },
+              {
+                "name": "recipient_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the signature request recipient"
+              },
+              {
+                "name": "additional_document_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the additional document"
+              }
+            ]
+          },
+          "docs": "Downloads a specific additional document for a recipient."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
