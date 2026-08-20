@@ -28,6 +28,14 @@ specificationVersion: '0.23'
 tags:
   - PDF
   - E-Signature
+  - Document-Management
+  - Form Builder
+  - PDF Editing
+  - Electronic Signature
+  - Document Workflow
+tags_raw:
+  - PDF
+  - E-Signature
   - Document Management
   - Form Builder
   - PDF Editing
@@ -40,6 +48,8 @@ apis:
   humanURL: https://docs.pdffiller.com/docs/pdffiller/zmnt034fyekxf-pdf-filler-api
   baseURL: https://api.pdffiller.com/v2/
   tags:
+  - Application
+  tags_raw:
   - Applications
   properties:
   - type: OpenAPI
@@ -52,6 +62,8 @@ apis:
   humanURL: https://docs.pdffiller.com/docs/pdffiller/zmnt034fyekxf-pdf-filler-api
   baseURL: https://api.pdffiller.com/v2/
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -160,6 +172,8 @@ apis:
   humanURL: https://docs.pdffiller.com/docs/pdffiller/zmnt034fyekxf-pdf-filler-api
   baseURL: https://api.pdffiller.com/v2/
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
