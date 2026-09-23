@@ -1,17 +1,7 @@
 {
   "provider": "pdffiller",
   "sources": [
-    "pdffiller-applications-api-openapi.yml",
-    "pdffiller-auth-api-openapi.yml",
-    "pdffiller-callbacks-api-openapi.yml",
-    "pdffiller-custom-logos-api-openapi.yml",
-    "pdffiller-fillable-forms-api-openapi.yml",
-    "pdffiller-folders-api-openapi.yml",
-    "pdffiller-signature-requests-api-openapi.yml",
-    "pdffiller-templates-api-openapi.yml",
-    "pdffiller-tokens-api-openapi.yml",
-    "pdffiller-tools-api-openapi.yml",
-    "pdffiller-users-api-openapi.yml"
+    "_original/pdffiller-pdffiller-api-openapi.yml"
   ],
   "outputs": [
     "pdffiller-applications-api-openapi.yml",
@@ -29,6 +19,22 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "pdffiller-pdffiller-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "pdffiller-applications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pdffiller-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pdffiller-callbacks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pdffiller-custom-logos-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pdffiller-fillable-forms-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pdffiller-folders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pdffiller-signature-requests-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pdffiller-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pdffiller-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pdffiller-tools-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pdffiller-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

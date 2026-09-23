@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: PDFfiller REST Applications Signature Requests API
-  description: 'The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
-
-    '
+  title: PDFfiller REST Signature Requests API
+  description: The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
   version: '2.0'
   contact:
     name: PDFfiller Developer Support
@@ -127,9 +125,7 @@ paths:
     post:
       operationId: createSignatureRequest
       summary: Create a signature request
-      description: 'Creates a new eSignature request. Supports two methods: SendToEach (individual recipients) and SendToGroup (envelope with ordered signing). SendToGroup requires envelope_name, sign_in_order, and role parameters per recipient.
-
-        '
+      description: 'Creates a new eSignature request. Supports two methods: SendToEach (individual recipients) and SendToGroup (envelope with ordered signing). SendToGroup requires envelope_name, sign_in_order, and role parameters per recipient.'
       tags:
       - Signature Requests
       requestBody:
@@ -356,13 +352,6 @@ paths:
                 format: binary
 components:
   parameters:
-    additional_document_id:
-      name: additional_document_id
-      in: path
-      required: true
-      description: Unique identifier for the additional document
-      schema:
-        type: integer
     recipient_id:
       name: recipient_id
       in: path
@@ -370,6 +359,12 @@ components:
       description: Unique identifier for the signature request recipient
       schema:
         type: integer
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
     signature_request_id:
       name: signature_request_id
       in: path
@@ -385,19 +380,6 @@ components:
         type: integer
         default: 15
         maximum: 100
-    order_by:
-      name: order_by
-      in: query
-      description: Field to sort results by
-      schema:
-        type: string
-    page:
-      name: page
-      in: query
-      description: Page number
-      schema:
-        type: integer
-        default: 1
     order:
       name: order
       in: query
@@ -408,85 +390,21 @@ components:
         - asc
         - desc
         default: desc
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    additional_document_id:
+      name: additional_document_id
+      in: path
+      required: true
+      description: Unique identifier for the additional document
+      schema:
+        type: integer
   schemas:
-    SignatureRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-        document_id:
-          type: integer
-        method:
-          type: string
-          enum:
-          - SendToEach
-          - SendToGroup
-        envelope_name:
-          type: string
-        status:
-          type: string
-          enum:
-          - awaiting
-          - completed
-          - cancelled
-        sign_in_order:
-          type: boolean
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        recipients:
-          type: array
-          items:
-            $ref: '#/components/schemas/Recipient'
-    RecipientInput:
-      type: object
-      required:
-      - email
-      properties:
-        email:
-          type: string
-          format: email
-          description: Recipient email address
-        name:
-          type: string
-          description: Recipient name
-        role:
-          type: integer
-          description: Role ID for SendToGroup method
-        access:
-          type: string
-          description: Recipient access type (fill or sign)
-        message:
-          type: string
-          description: Custom message to the recipient
-        phone_number:
-          type: string
-          description: Phone number for SMS verification
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        code:
-          type: integer
-    SignatureRequestList:
-      type: object
-      properties:
-        total:
-          type: integer
-        per_page:
-          type: integer
-        page:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/SignatureRequest'
     SignatureRequestInput:
       type: object
       required:
@@ -545,6 +463,38 @@ components:
           type: integer
         order:
           type: integer
+    SignatureRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        document_id:
+          type: integer
+        method:
+          type: string
+          enum:
+          - SendToEach
+          - SendToGroup
+        envelope_name:
+          type: string
+        status:
+          type: string
+          enum:
+          - awaiting
+          - completed
+          - cancelled
+        sign_in_order:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        recipients:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recipient'
     AdditionalDocument:
       type: object
       properties:
@@ -559,15 +509,61 @@ components:
         created_at:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
+    RecipientInput:
+      type: object
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+          description: Recipient email address
+        name:
+          type: string
+          description: Recipient name
+        role:
+          type: integer
+          description: Role ID for SendToGroup method
+        access:
+          type: string
+          description: Recipient access type (fill or sign)
+        message:
+          type: string
+          description: Custom message to the recipient
+        phone_number:
+          type: string
+          description: Phone number for SMS verification
+    SignatureRequestList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignatureRequest'
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required or token invalid
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or token invalid
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: PDFfiller REST Applications Tokens API
-  description: 'The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
-
-    '
+  title: PDFfiller REST Tokens API
+  description: The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
   version: '2.0'
   contact:
     name: PDFfiller Developer Support
@@ -118,15 +116,17 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    TokenList:
+    TokenInput:
       type: object
+      required:
+      - document_id
       properties:
-        total:
+        document_id:
           type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Token'
+          description: Document ID to create token for
+        expires_in:
+          type: integer
+          description: Token expiration in seconds
     Token:
       type: object
       properties:
@@ -152,39 +152,35 @@ components:
           type: string
         code:
           type: integer
-    TokenInput:
+    TokenList:
       type: object
-      required:
-      - document_id
       properties:
-        document_id:
+        total:
           type: integer
-          description: Document ID to create token for
-        expires_in:
-          type: integer
-          description: Token expiration in seconds
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Token'
+  responses:
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    per_page:
-      name: per_page
-      in: query
-      description: Number of items per page
-      schema:
-        type: integer
-        default: 15
-        maximum: 100
     order_by:
       name: order_by
       in: query
       description: Field to sort results by
       schema:
         type: string
-    page:
-      name: page
-      in: query
-      description: Page number
-      schema:
-        type: integer
-        default: 1
     order:
       name: order
       in: query
@@ -195,6 +191,21 @@ components:
         - asc
         - desc
         default: desc
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
     token_id:
       name: token_id
       in: path
@@ -202,19 +213,6 @@ components:
       description: Unique identifier for the token
       schema:
         type: integer
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or token invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

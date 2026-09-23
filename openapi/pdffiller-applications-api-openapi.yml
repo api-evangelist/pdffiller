@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: PDFfiller REST Applications API
-  description: 'The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
-
-    '
+  description: The PDFfiller REST API allows developers to build applications that interact with PDFfiller over HTTP. It supports operations for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. Authentication uses OAuth 2.0 with password or client credentials grant types. PDFfiller is part of the airSlate family of products.
   version: '2.0'
   contact:
     name: PDFfiller Developer Support
@@ -176,15 +174,6 @@ components:
         all-domains:
           type: boolean
           description: Allow all domains flag
-    UserList:
-      type: object
-      properties:
-        total:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
     Error:
       type: object
       properties:
@@ -194,19 +183,6 @@ components:
           type: string
         code:
           type: integer
-    ApplicationList:
-      type: object
-      properties:
-        total:
-          type: integer
-        per_page:
-          type: integer
-        page:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Application'
     Application:
       type: object
       properties:
@@ -231,20 +207,58 @@ components:
         updated_at:
           type: string
           format: date-time
+    UserList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    ApplicationList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Application'
+  responses:
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    application_id:
-      name: application_id
-      in: path
-      required: true
-      description: Unique identifier for the application
-      schema:
-        type: integer
     order_by:
       name: order_by
       in: query
       description: Field to sort results by
       schema:
         type: string
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
     per_page:
       name: per_page
       in: query
@@ -260,29 +274,13 @@ components:
       schema:
         type: integer
         default: 1
-    order:
-      name: order
-      in: query
-      description: Sort order
+    application_id:
+      name: application_id
+      in: path
+      required: true
+      description: Unique identifier for the application
       schema:
-        type: string
-        enum:
-        - asc
-        - desc
-        default: desc
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or token invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        type: integer
   securitySchemes:
     oauth2:
       type: oauth2
