@@ -40,7 +40,7 @@ specificationVersion: '0.23'
 tags:
   - PDF
   - E-Signature
-  - Document-Management
+  - Document Management
   - Form Builder
   - PDF Editing
   - Electronic Signature
@@ -53,6 +53,7 @@ tags_raw:
   - PDF Editing
   - Electronic Signature
   - Document Workflow
+  - Document-Management
 apis:
 - aid: pdffiller:pdffiller-applications-api
   name: PDFfiller Applications API

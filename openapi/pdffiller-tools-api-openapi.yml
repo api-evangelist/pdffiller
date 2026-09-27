@@ -58,15 +58,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        code:
-          type: integer
     MergeInput:
       type: object
       required:
@@ -87,6 +78,15 @@ components:
         folder_id:
           type: integer
           description: Folder ID for the merged document
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
   securitySchemes:
     oauth2:
       type: oauth2

@@ -318,7 +318,118 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
+    link_to_fill_id:
+      name: link_to_fill_id
+      in: path
+      required: true
+      description: Unique identifier for the fillable form (LinkToFill)
+      schema:
+        type: integer
+    filled_form_id:
+      name: filled_form_id
+      in: path
+      required: true
+      description: Unique identifier for the filled form submission
+      schema:
+        type: integer
+    additional_document_id:
+      name: additional_document_id
+      in: path
+      required: true
+      description: Unique identifier for the additional document
+      schema:
+        type: integer
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
   schemas:
+    FillableFormList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/FillableForm'
+    FilledFormList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/FilledForm'
+    FilledForm:
+      type: object
+      properties:
+        id:
+          type: integer
+        link_to_fill_id:
+          type: integer
+        status:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        ip:
+          type: string
+        created_at:
+          type: string
+          format: date-time
     FillableForm:
       type: object
       properties:
@@ -364,19 +475,29 @@ components:
         updated_at:
           type: string
           format: date-time
-    FilledFormList:
+    AdditionalDocument:
       type: object
       properties:
-        total:
+        id:
           type: integer
-        per_page:
+        name:
+          type: string
+        type:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
           type: integer
-        page:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/FilledForm'
     FillableFormInput:
       type: object
       properties:
@@ -453,127 +574,6 @@ components:
           items:
             type: object
           description: Additional documents required after filling
-    FilledForm:
-      type: object
-      properties:
-        id:
-          type: integer
-        link_to_fill_id:
-          type: integer
-        status:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-          format: email
-        ip:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        code:
-          type: integer
-    AdditionalDocument:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        type:
-          type: string
-        status:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-    FillableFormList:
-      type: object
-      properties:
-        total:
-          type: integer
-        per_page:
-          type: integer
-        page:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/FillableForm'
-  parameters:
-    link_to_fill_id:
-      name: link_to_fill_id
-      in: path
-      required: true
-      description: Unique identifier for the fillable form (LinkToFill)
-      schema:
-        type: integer
-    filled_form_id:
-      name: filled_form_id
-      in: path
-      required: true
-      description: Unique identifier for the filled form submission
-      schema:
-        type: integer
-    order_by:
-      name: order_by
-      in: query
-      description: Field to sort results by
-      schema:
-        type: string
-    order:
-      name: order
-      in: query
-      description: Sort order
-      schema:
-        type: string
-        enum:
-        - asc
-        - desc
-        default: desc
-    per_page:
-      name: per_page
-      in: query
-      description: Number of items per page
-      schema:
-        type: integer
-        default: 15
-        maximum: 100
-    page:
-      name: page
-      in: query
-      description: Page number
-      schema:
-        type: integer
-        default: 1
-    additional_document_id:
-      name: additional_document_id
-      in: path
-      required: true
-      description: Unique identifier for the additional document
-      schema:
-        type: integer
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or token invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

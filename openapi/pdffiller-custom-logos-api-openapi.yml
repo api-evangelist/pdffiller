@@ -95,14 +95,20 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    page:
-      name: page
-      in: query
-      description: Page number
-      schema:
-        type: integer
-        default: 1
     custom_logo_id:
       name: custom_logo_id
       in: path
@@ -110,6 +116,13 @@ components:
       description: Unique identifier for the custom logo
       schema:
         type: integer
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
     per_page:
       name: per_page
       in: query
@@ -118,29 +131,7 @@ components:
         type: integer
         default: 15
         maximum: 100
-  responses:
-    Unauthorized:
-      description: Authentication required or token invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        code:
-          type: integer
     CustomLogoList:
       type: object
       properties:
@@ -150,6 +141,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CustomLogo'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
     CustomLogo:
       type: object
       properties:

@@ -282,6 +282,58 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Field:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - text
+          - signature
+          - date
+          - checkbox
+          - dropdown
+          - initials
+        page:
+          type: integer
+        required:
+          type: boolean
+        role:
+          type: string
+    TemplateList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
+    FilledDocumentList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              status:
+                type: string
+              created_at:
+                type: string
+                format: date-time
     Template:
       type: object
       properties:
@@ -306,23 +358,15 @@ components:
         thumbnail:
           type: string
           format: uri
-    FilledDocumentList:
+    Error:
       type: object
       properties:
-        total:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
           type: integer
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              status:
-                type: string
-              created_at:
-                type: string
-                format: date-time
     Role:
       type: object
       properties:
@@ -332,28 +376,6 @@ components:
           type: string
         order:
           type: integer
-    Field:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - text
-          - signature
-          - date
-          - checkbox
-          - dropdown
-          - initials
-        page:
-          type: integer
-        required:
-          type: boolean
-        role:
-          type: string
     TemplateInput:
       type: object
       properties:
@@ -366,37 +388,15 @@ components:
         folder_id:
           type: integer
           description: Folder ID to place template in
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        code:
-          type: integer
-    TemplateList:
-      type: object
-      properties:
-        total:
-          type: integer
-        per_page:
-          type: integer
-        page:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Template'
   responses:
-    Unauthorized:
-      description: Authentication required or token invalid
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required or token invalid
       content:
         application/json:
           schema:
@@ -408,6 +408,20 @@ components:
       description: Field to sort results by
       schema:
         type: string
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    template_id:
+      name: template_id
+      in: path
+      required: true
+      description: Unique identifier for the template
+      schema:
+        type: integer
     order:
       name: order
       in: query
@@ -426,20 +440,6 @@ components:
         type: integer
         default: 15
         maximum: 100
-    template_id:
-      name: template_id
-      in: path
-      required: true
-      description: Unique identifier for the template
-      schema:
-        type: integer
-    page:
-      name: page
-      in: query
-      description: Page number
-      schema:
-        type: integer
-        default: 1
   securitySchemes:
     oauth2:
       type: oauth2

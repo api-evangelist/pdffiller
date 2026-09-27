@@ -115,61 +115,15 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  schemas:
-    TokenInput:
-      type: object
-      required:
-      - document_id
-      properties:
-        document_id:
-          type: integer
-          description: Document ID to create token for
-        expires_in:
-          type: integer
-          description: Token expiration in seconds
-    Token:
-      type: object
-      properties:
-        id:
-          type: integer
-        document_id:
-          type: integer
-        hash:
-          type: string
-          description: Token hash for embedding
-        expires_at:
-          type: string
-          format: date-time
-        created_at:
-          type: string
-          format: date-time
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        code:
-          type: integer
-    TokenList:
-      type: object
-      properties:
-        total:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Token'
   responses:
-    Unauthorized:
-      description: Authentication required or token invalid
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required or token invalid
       content:
         application/json:
           schema:
@@ -181,6 +135,20 @@ components:
       description: Field to sort results by
       schema:
         type: string
+    token_id:
+      name: token_id
+      in: path
+      required: true
+      description: Unique identifier for the token
+      schema:
+        type: integer
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
     order:
       name: order
       in: query
@@ -199,20 +167,52 @@ components:
         type: integer
         default: 15
         maximum: 100
-    page:
-      name: page
-      in: query
-      description: Page number
-      schema:
-        type: integer
-        default: 1
-    token_id:
-      name: token_id
-      in: path
-      required: true
-      description: Unique identifier for the token
-      schema:
-        type: integer
+  schemas:
+    Token:
+      type: object
+      properties:
+        id:
+          type: integer
+        document_id:
+          type: integer
+        hash:
+          type: string
+          description: Token hash for embedding
+        expires_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+    TokenList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Token'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
+    TokenInput:
+      type: object
+      required:
+      - document_id
+      properties:
+        document_id:
+          type: integer
+          description: Document ID to create token for
+        expires_in:
+          type: integer
+          description: Token expiration in seconds
   securitySchemes:
     oauth2:
       type: oauth2
