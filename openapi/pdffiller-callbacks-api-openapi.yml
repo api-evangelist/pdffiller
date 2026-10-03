@@ -160,58 +160,34 @@ paths:
           description: Global callback deleted
 components:
   responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication required or token invalid
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    order_by:
-      name: order_by
-      in: query
-      description: Field to sort results by
-      schema:
-        type: string
-    callback_id:
-      name: callback_id
-      in: path
-      required: true
-      description: Unique identifier for the callback
-      schema:
-        type: integer
-    page:
-      name: page
-      in: query
-      description: Page number
-      schema:
-        type: integer
-        default: 1
-    order:
-      name: order
-      in: query
-      description: Sort order
-      schema:
-        type: string
-        enum:
-        - asc
-        - desc
-        default: desc
-    per_page:
-      name: per_page
-      in: query
-      description: Number of items per page
-      schema:
-        type: integer
-        default: 15
-        maximum: 100
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Callback:
+      type: object
+      properties:
+        id:
+          type: integer
+        document_id:
+          type: integer
+        callback_url:
+          type: string
+          format: uri
+        event:
+          type: string
+        created_at:
+          type: string
+          format: date-time
     Error:
       type: object
       properties:
@@ -230,21 +206,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Callback'
-    Callback:
-      type: object
-      properties:
-        id:
-          type: integer
-        document_id:
-          type: integer
-        callback_url:
-          type: string
-          format: uri
-        event:
-          type: string
-        created_at:
-          type: string
-          format: date-time
     CallbackInput:
       type: object
       required:
@@ -260,6 +221,45 @@ components:
         event:
           type: string
           description: Event type to trigger the callback
+  parameters:
+    callback_id:
+      name: callback_id
+      in: path
+      required: true
+      description: Unique identifier for the callback
+      schema:
+        type: integer
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
   securitySchemes:
     oauth2:
       type: oauth2

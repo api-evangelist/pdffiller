@@ -116,25 +116,19 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication required or token invalid
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    order_by:
-      name: order_by
-      in: query
-      description: Field to sort results by
-      schema:
-        type: string
     token_id:
       name: token_id
       in: path
@@ -142,13 +136,12 @@ components:
       description: Unique identifier for the token
       schema:
         type: integer
-    page:
-      name: page
+    order_by:
+      name: order_by
       in: query
-      description: Page number
+      description: Field to sort results by
       schema:
-        type: integer
-        default: 1
+        type: string
     order:
       name: order
       in: query
@@ -159,6 +152,13 @@ components:
         - asc
         - desc
         default: desc
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
     per_page:
       name: per_page
       in: query
@@ -168,6 +168,26 @@ components:
         default: 15
         maximum: 100
   schemas:
+    TokenInput:
+      type: object
+      required:
+      - document_id
+      properties:
+        document_id:
+          type: integer
+          description: Document ID to create token for
+        expires_in:
+          type: integer
+          description: Token expiration in seconds
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
     Token:
       type: object
       properties:
@@ -193,26 +213,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Token'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        code:
-          type: integer
-    TokenInput:
-      type: object
-      required:
-      - document_id
-      properties:
-        document_id:
-          type: integer
-          description: Document ID to create token for
-        expires_in:
-          type: integer
-          description: Token expiration in seconds
   securitySchemes:
     oauth2:
       type: oauth2

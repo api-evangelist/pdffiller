@@ -43,21 +43,6 @@ paths:
           description: Invalid credentials
 components:
   schemas:
-    AccessToken:
-      type: object
-      properties:
-        access_token:
-          type: string
-          description: OAuth 2.0 access token
-        token_type:
-          type: string
-          example: Bearer
-        expires_in:
-          type: integer
-          description: Token expiration time in seconds
-        refresh_token:
-          type: string
-          description: Token for refreshing the access token
     AuthCredentials:
       type: object
       required:
@@ -83,6 +68,21 @@ components:
         password:
           type: string
           description: User password (required for password grant)
+    AccessToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: OAuth 2.0 access token
+        token_type:
+          type: string
+          example: Bearer
+        expires_in:
+          type: integer
+          description: Token expiration time in seconds
+        refresh_token:
+          type: string
+          description: Token for refreshing the access token
   securitySchemes:
     oauth2:
       type: oauth2

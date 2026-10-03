@@ -351,26 +351,7 @@ paths:
                 type: string
                 format: binary
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or token invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
-    order_by:
-      name: order_by
-      in: query
-      description: Field to sort results by
-      schema:
-        type: string
     recipient_id:
       name: recipient_id
       in: path
@@ -378,6 +359,12 @@ components:
       description: Unique identifier for the signature request recipient
       schema:
         type: integer
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
     additional_document_id:
       name: additional_document_id
       in: path
@@ -385,13 +372,6 @@ components:
       description: Unique identifier for the additional document
       schema:
         type: integer
-    page:
-      name: page
-      in: query
-      description: Page number
-      schema:
-        type: integer
-        default: 1
     order:
       name: order
       in: query
@@ -402,6 +382,20 @@ components:
         - asc
         - desc
         default: desc
+    signature_request_id:
+      name: signature_request_id
+      in: path
+      required: true
+      description: Unique identifier for the signature request
+      schema:
+        type: integer
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
     per_page:
       name: per_page
       in: query
@@ -410,46 +404,67 @@ components:
         type: integer
         default: 15
         maximum: 100
-    signature_request_id:
-      name: signature_request_id
-      in: path
-      required: true
-      description: Unique identifier for the signature request
-      schema:
-        type: integer
   schemas:
-    SignatureRequest:
+    RecipientInput:
+      type: object
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+          description: Recipient email address
+        name:
+          type: string
+          description: Recipient name
+        role:
+          type: integer
+          description: Role ID for SendToGroup method
+        access:
+          type: string
+          description: Recipient access type (fill or sign)
+        message:
+          type: string
+          description: Custom message to the recipient
+        phone_number:
+          type: string
+          description: Phone number for SMS verification
+    SignatureRequestList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SignatureRequest'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
+    AdditionalDocument:
       type: object
       properties:
         id:
           type: integer
-        document_id:
-          type: integer
-        method:
+        name:
           type: string
-          enum:
-          - SendToEach
-          - SendToGroup
-        envelope_name:
+        type:
           type: string
         status:
           type: string
-          enum:
-          - awaiting
-          - completed
-          - cancelled
-        sign_in_order:
-          type: boolean
         created_at:
           type: string
           format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        recipients:
-          type: array
-          items:
-            $ref: '#/components/schemas/Recipient'
     SignatureRequestInput:
       type: object
       required:
@@ -508,66 +523,51 @@ components:
           type: integer
         order:
           type: integer
-    AdditionalDocument:
+    SignatureRequest:
       type: object
       properties:
         id:
           type: integer
-        name:
+        document_id:
+          type: integer
+        method:
           type: string
-        type:
+          enum:
+          - SendToEach
+          - SendToGroup
+        envelope_name:
           type: string
         status:
           type: string
+          enum:
+          - awaiting
+          - completed
+          - cancelled
+        sign_in_order:
+          type: boolean
         created_at:
           type: string
           format: date-time
-    Error:
-      type: object
-      properties:
-        error:
+        updated_at:
           type: string
-        error_description:
-          type: string
-        code:
-          type: integer
-    RecipientInput:
-      type: object
-      required:
-      - email
-      properties:
-        email:
-          type: string
-          format: email
-          description: Recipient email address
-        name:
-          type: string
-          description: Recipient name
-        role:
-          type: integer
-          description: Role ID for SendToGroup method
-        access:
-          type: string
-          description: Recipient access type (fill or sign)
-        message:
-          type: string
-          description: Custom message to the recipient
-        phone_number:
-          type: string
-          description: Phone number for SMS verification
-    SignatureRequestList:
-      type: object
-      properties:
-        total:
-          type: integer
-        per_page:
-          type: integer
-        page:
-          type: integer
-        items:
+          format: date-time
+        recipients:
           type: array
           items:
-            $ref: '#/components/schemas/SignatureRequest'
+            $ref: '#/components/schemas/Recipient'
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

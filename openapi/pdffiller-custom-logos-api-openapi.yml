@@ -95,15 +95,45 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  schemas:
+    CustomLogoList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomLogo'
+    CustomLogo:
+      type: object
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Authentication required or token invalid
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or token invalid
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -131,36 +161,6 @@ components:
         type: integer
         default: 15
         maximum: 100
-  schemas:
-    CustomLogoList:
-      type: object
-      properties:
-        total:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomLogo'
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        code:
-          type: integer
-    CustomLogo:
-      type: object
-      properties:
-        id:
-          type: integer
-        url:
-          type: string
-          format: uri
-        created_at:
-          type: string
-          format: date-time
   securitySchemes:
     oauth2:
       type: oauth2
