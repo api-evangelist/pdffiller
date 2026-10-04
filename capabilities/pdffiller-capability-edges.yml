@@ -1,0 +1,26 @@
+slug: pdffiller
+provider: PDFfiller
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Callbacks
+  spec_file: pdffiller-callbacks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.7
+  evidence: POST /callbacks  createCallback  Create a callback; PUT /callbacks/global  updateGlobalCallback  Update
+    global callback
+  reason: Callbacks here are outbound event notification subscriptions whose lifecycle (create/update/delete,
+    global default) the API manages, matching Webhook & Event Subscription Management, which is an explicit
+    capability in this frame.

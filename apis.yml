@@ -194,6 +194,9 @@ apis:
   - type: Documentation
     url: https://docs.pdffiller.com/docs/pdffiller/zmnt034fyekxf-pdf-filler-api
 common:
+  - type: CapabilityMap
+    url: capabilities/pdffiller-capability-edges.yml
+    name: PDFfiller Business Capability Map
   - type: AgenticAccess
     url: agentic-access/pdffiller-agentic-access.yml
   - type: DomainSecurity
