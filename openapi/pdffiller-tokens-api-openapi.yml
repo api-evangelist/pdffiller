@@ -115,70 +115,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required or token invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    token_id:
-      name: token_id
-      in: path
-      required: true
-      description: Unique identifier for the token
-      schema:
-        type: integer
-    order_by:
-      name: order_by
-      in: query
-      description: Field to sort results by
-      schema:
-        type: string
-    order:
-      name: order
-      in: query
-      description: Sort order
-      schema:
-        type: string
-        enum:
-        - asc
-        - desc
-        default: desc
-    page:
-      name: page
-      in: query
-      description: Page number
-      schema:
-        type: integer
-        default: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Number of items per page
-      schema:
-        type: integer
-        default: 15
-        maximum: 100
   schemas:
-    TokenInput:
-      type: object
-      required:
-      - document_id
-      properties:
-        document_id:
-          type: integer
-          description: Document ID to create token for
-        expires_in:
-          type: integer
-          description: Token expiration in seconds
     Error:
       type: object
       properties:
@@ -188,6 +125,15 @@ components:
           type: string
         code:
           type: integer
+    TokenList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Token'
     Token:
       type: object
       properties:
@@ -204,15 +150,69 @@ components:
         created_at:
           type: string
           format: date-time
-    TokenList:
+    TokenInput:
       type: object
+      required:
+      - document_id
       properties:
-        total:
+        document_id:
           type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Token'
+          description: Document ID to create token for
+        expires_in:
+          type: integer
+          description: Token expiration in seconds
+  parameters:
+    token_id:
+      name: token_id
+      in: path
+      required: true
+      description: Unique identifier for the token
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

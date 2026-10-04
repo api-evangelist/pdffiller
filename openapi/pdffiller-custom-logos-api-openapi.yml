@@ -96,15 +96,15 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    CustomLogoList:
+    Error:
       type: object
       properties:
-        total:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
           type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CustomLogo'
     CustomLogo:
       type: object
       properties:
@@ -116,43 +116,16 @@ components:
         created_at:
           type: string
           format: date-time
-    Error:
+    CustomLogoList:
       type: object
       properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        code:
+        total:
           type: integer
-  responses:
-    Unauthorized:
-      description: Authentication required or token invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomLogo'
   parameters:
-    custom_logo_id:
-      name: custom_logo_id
-      in: path
-      required: true
-      description: Unique identifier for the custom logo
-      schema:
-        type: integer
-    page:
-      name: page
-      in: query
-      description: Page number
-      schema:
-        type: integer
-        default: 1
     per_page:
       name: per_page
       in: query
@@ -161,6 +134,33 @@ components:
         type: integer
         default: 15
         maximum: 100
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    custom_logo_id:
+      name: custom_logo_id
+      in: path
+      required: true
+      description: Unique identifier for the custom logo
+      schema:
+        type: integer
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

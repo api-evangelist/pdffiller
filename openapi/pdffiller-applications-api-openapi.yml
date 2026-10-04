@@ -137,82 +137,29 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication required or token invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    order_by:
-      name: order_by
-      in: query
-      description: Field to sort results by
-      schema:
-        type: string
-    order:
-      name: order
-      in: query
-      description: Sort order
-      schema:
-        type: string
-        enum:
-        - asc
-        - desc
-        default: desc
-    application_id:
-      name: application_id
-      in: path
-      required: true
-      description: Unique identifier for the application
-      schema:
-        type: integer
-    page:
-      name: page
-      in: query
-      description: Page number
-      schema:
-        type: integer
-        default: 1
-    per_page:
-      name: per_page
-      in: query
-      description: Number of items per page
-      schema:
-        type: integer
-        default: 15
-        maximum: 100
   schemas:
-    ApplicationInput:
+    Error:
       type: object
-      required:
-      - name
       properties:
+        error:
+          type: string
+        error_description:
+          type: string
+        code:
+          type: integer
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
         name:
           type: string
-          description: Application name
-        description:
+        created_at:
           type: string
-          description: Application description
-        domain:
-          type: string
-          description: Application domain for authorization_code grant
-        logo:
-          type: string
-          description: Logo image (base64 string, file URL, or file upload)
-        embedded-domain:
-          type: string
-          description: Domain where the client will be embedded
-        all-domains:
-          type: boolean
-          description: Allow all domains flag
+          format: date-time
     Application:
       type: object
       properties:
@@ -237,28 +184,38 @@ components:
         updated_at:
           type: string
           format: date-time
-    Error:
+    ApplicationInput:
       type: object
+      required:
+      - name
       properties:
-        error:
-          type: string
-        error_description:
-          type: string
-        code:
-          type: integer
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-        email:
-          type: string
-          format: email
         name:
           type: string
-        created_at:
+          description: Application name
+        description:
           type: string
-          format: date-time
+          description: Application description
+        domain:
+          type: string
+          description: Application domain for authorization_code grant
+        logo:
+          type: string
+          description: Logo image (base64 string, file URL, or file upload)
+        embedded-domain:
+          type: string
+          description: Domain where the client will be embedded
+        all-domains:
+          type: boolean
+          description: Allow all domains flag
+    UserList:
+      type: object
+      properties:
+        total:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
     ApplicationList:
       type: object
       properties:
@@ -272,15 +229,58 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Application'
-    UserList:
-      type: object
-      properties:
-        total:
-          type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
+  parameters:
+    application_id:
+      name: application_id
+      in: path
+      required: true
+      description: Unique identifier for the application
+      schema:
+        type: integer
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

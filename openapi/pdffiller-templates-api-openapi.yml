@@ -281,59 +281,32 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication required or token invalid
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    order_by:
-      name: order_by
-      in: query
-      description: Field to sort results by
-      schema:
-        type: string
-    order:
-      name: order
-      in: query
-      description: Sort order
-      schema:
-        type: string
-        enum:
-        - asc
-        - desc
-        default: desc
-    template_id:
-      name: template_id
-      in: path
-      required: true
-      description: Unique identifier for the template
-      schema:
-        type: integer
-    per_page:
-      name: per_page
-      in: query
-      description: Number of items per page
-      schema:
-        type: integer
-        default: 15
-        maximum: 100
-    page:
-      name: page
-      in: query
-      description: Page number
-      schema:
-        type: integer
-        default: 1
   schemas:
+    TemplateList:
+      type: object
+      properties:
+        total:
+          type: integer
+        per_page:
+          type: integer
+        page:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Template'
+    TemplateInput:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Template name
+        file:
+          type: string
+          description: File URL or base64 encoded file content
+        folder_id:
+          type: integer
+          description: Folder ID to place template in
     Error:
       type: object
       properties:
@@ -343,37 +316,6 @@ components:
           type: string
         code:
           type: integer
-    Role:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        order:
-          type: integer
-    Field:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - text
-          - signature
-          - date
-          - checkbox
-          - dropdown
-          - initials
-        page:
-          type: integer
-        required:
-          type: boolean
-        role:
-          type: string
     Template:
       type: object
       properties:
@@ -415,31 +357,89 @@ components:
               created_at:
                 type: string
                 format: date-time
-    TemplateInput:
+    Field:
       type: object
       properties:
+        id:
+          type: integer
         name:
           type: string
-          description: Template name
-        file:
+        type:
           type: string
-          description: File URL or base64 encoded file content
-        folder_id:
-          type: integer
-          description: Folder ID to place template in
-    TemplateList:
-      type: object
-      properties:
-        total:
-          type: integer
-        per_page:
-          type: integer
+          enum:
+          - text
+          - signature
+          - date
+          - checkbox
+          - dropdown
+          - initials
         page:
           type: integer
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Template'
+        required:
+          type: boolean
+        role:
+          type: string
+    Role:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        order:
+          type: integer
+  parameters:
+    per_page:
+      name: per_page
+      in: query
+      description: Number of items per page
+      schema:
+        type: integer
+        default: 15
+        maximum: 100
+    page:
+      name: page
+      in: query
+      description: Page number
+      schema:
+        type: integer
+        default: 1
+    order:
+      name: order
+      in: query
+      description: Sort order
+      schema:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: desc
+    order_by:
+      name: order_by
+      in: query
+      description: Field to sort results by
+      schema:
+        type: string
+    template_id:
+      name: template_id
+      in: path
+      required: true
+      description: Unique identifier for the template
+      schema:
+        type: integer
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication required or token invalid
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2
