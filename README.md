@@ -64,25 +64,177 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-PDFfiller is an online PDF editing and e-signature platform that provides a REST API for filling, editing, signing, converting, and managing PDF documents programmatically. The API enables developers to embed PDF editing, form-building, signature request workflows, and document management capabilities into their own applications. PDFfiller is part of the airSlate family of products.
+PDFfiller is an online PDF editing and e-signature platform that provides a REST API for filling, editing, signing, converting, and managing PDF documents programmatically. The API enables developers to embed PDF editing, form-building, signature request workflows, and document management capabilities into their own applications. It is part of the airSlate family of products and supports OAuth 2.0 authentication with a base URL of https://api.pdffiller.com/v2/.
 
-## API
+**Areas:** PDF · E-Signature · Document Management · Form Builder · PDF Editing · Document Workflow
 
-The PDFfiller REST API uses OAuth 2.0 authentication and exposes resources for managing documents, templates, fillable forms, fields, annotations, and eSignature requests. The base URL is `https://api.pdffiller.com/v2/`.
+## PDFfiller on APIs.io
 
-- **API Documentation**: https://docs.pdffiller.com/docs/pdffiller/zmnt034fyekxf-pdf-filler-api
-- **Developer Portal**: https://developers.pdffiller.com
-- **API Dashboard**: https://api.pdffiller.com/admin
+Everything profiled for PDFfiller is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/pdffiller/](https://apis.io/providers/pdffiller/)** — or go straight to one of the APIs or properties below.
 
-## Links
+### APIs (11)
 
-- **Website**: https://www.pdffiller.com
-- **Blog**: https://blog.pdffiller.com
-- **GitHub**: https://github.com/pdffiller
-- **LinkedIn**: https://www.linkedin.com/company/pdffiller-com
-- **X**: https://x.com/pdf_filler
-- **Pricing**: https://www.pdffiller.com/en/pdf-api-pricing.htm
+- [PDFfiller Applications API](https://apis.io/apis/pdffiller/pdffiller-applications-api/) — Manage OAuth applications
+- [PDFfiller Auth API](https://apis.io/apis/pdffiller/pdffiller-auth-api/) — OAuth 2.0 authentication token management
+- [PDFfiller Callbacks API](https://apis.io/apis/pdffiller/pdffiller-callbacks-api/) — Manage webhook callbacks for document events
+- [PDFfiller Custom Logos API](https://apis.io/apis/pdffiller/pdffiller-custom-logos-api/) — Manage custom branding logos
+- [PDFfiller Fillable Forms API](https://apis.io/apis/pdffiller/pdffiller-fillable-forms-api/) — Manage fillable form links and submissions
+- [PDFfiller Folders API](https://apis.io/apis/pdffiller/pdffiller-folders-api/) — Organize documents into folders
+- [PDFfiller Signature Requests API](https://apis.io/apis/pdffiller/pdffiller-signature-requests-api/) — Manage eSignature requests and workflows
+- [PDFfiller Templates API](https://apis.io/apis/pdffiller/pdffiller-templates-api/) — Manage PDF document templates
+- [PDFfiller Tokens API](https://apis.io/apis/pdffiller/pdffiller-tokens-api/) — Manage embedded document tokens
+- [PDFfiller Tools API](https://apis.io/apis/pdffiller/pdffiller-tools-api/) — Document utility tools (merge, convert)
+- [PDFfiller Users API](https://apis.io/apis/pdffiller/pdffiller-users-api/) — Retrieve current user information
 
-## Maintainers
+### Published properties
 
-**Kin Lane** kin@apievangelist.com
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Pdffiller Agentic Access](https://apis.io/agentic-access/pdffiller/pdffiller-agentic-access/)
+
+#### JSON Schema (3)
+
+The data models the API reads and writes.
+
+- [FillableForm](https://apis.io/schemas/pdffiller/pdffiller-fillable-form/)
+- [SignatureRequest](https://apis.io/schemas/pdffiller/pdffiller-signature-request/)
+- [Template](https://apis.io/schemas/pdffiller/pdffiller-template/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Pdffiller Context](https://apis.io/jsonld/pdffiller/pdffiller-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [PDFfiller API Vocabulary](https://apis.io/vocabularies/pdffiller/pdffiller-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Pdffiller Create Fillable Form Example](https://apis.io/examples/pdffiller/pdffiller-create-fillable-form-example/)
+- [Pdffiller Create Signature Request Example](https://apis.io/examples/pdffiller/pdffiller-create-signature-request-example/)
+- [Pdffiller Oauth Token Example](https://apis.io/examples/pdffiller/pdffiller-oauth-token-example/)
+
+#### Collections (11)
+
+Postman and Open Collection request collections.
+
+- [PDFfiller REST Applications API](https://apis.io/collections/pdffiller/open-pdffiller-applications-api/)
+- [PDFfiller REST Applications Auth API](https://apis.io/collections/pdffiller/open-pdffiller-auth-api/)
+- [PDFfiller REST Applications Callbacks API](https://apis.io/collections/pdffiller/open-pdffiller-callbacks-api/)
+- [PDFfiller REST Applications Custom Logos API](https://apis.io/collections/pdffiller/open-pdffiller-custom-logos-api/)
+- [PDFfiller REST Applications Fillable Forms API](https://apis.io/collections/pdffiller/open-pdffiller-fillable-forms-api/)
+- [PDFfiller REST Applications Folders API](https://apis.io/collections/pdffiller/open-pdffiller-folders-api/)
+- [PDFfiller REST Applications Signature Requests API](https://apis.io/collections/pdffiller/open-pdffiller-signature-requests-api/)
+- [PDFfiller REST Applications Templates API](https://apis.io/collections/pdffiller/open-pdffiller-templates-api/)
+- [PDFfiller REST Applications Tokens API](https://apis.io/collections/pdffiller/open-pdffiller-tokens-api/)
+- [PDFfiller REST Applications Tools API](https://apis.io/collections/pdffiller/open-pdffiller-tools-api/)
+- [PDFfiller REST Applications Users API](https://apis.io/collections/pdffiller/open-pdffiller-users-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [PDFfiller — jsonschema rules](https://apis.io/rules/pdffiller/pdffiller-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Pdffiller Authentication](https://apis.io/security/pdffiller/pdffiller-authentication/)
+- [Pdffiller Domain Security](https://apis.io/security/pdffiller/pdffiller-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Pdffiller Scopes](https://apis.io/scopes/pdffiller/pdffiller-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Pdffiller Plans Pricing](https://apis.io/plans/pdffiller/pdffiller-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Pdffiller Rate Limits](https://apis.io/rate-limits/pdffiller/pdffiller-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Pdffiller Finops](https://apis.io/finops/pdffiller/pdffiller-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.pdffiller.com)
+- [Documentation](https://docs.pdffiller.com/docs/pdffiller/zmnt034fyekxf-pdf-filler-api)
+- [Pricing](https://www.pdffiller.com/en/pdf-api-pricing.htm)
+- [Blog](https://blog.pdffiller.com)
+
+## API Evangelist rating
+
+**Kin Score 33.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 57.3 |
+| Contract governance | 9.8 |
+| Operational transparency | 5.3 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 18.4 |
+
+**Agent readiness 20.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 26.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/pdffiller/](https://apis.io/providers/pdffiller/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for PDFfiller: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/pdffiller/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
